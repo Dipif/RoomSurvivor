@@ -12,7 +12,7 @@ public class MovementUI : MonoBehaviour
     InputAction pointAction;
     int moveTouchId = -1;
     Vector2 moveTouchPos;
-
+    Vector3 direction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,7 +21,6 @@ public class MovementUI : MonoBehaviour
         pointAction = InputSystem.actions.FindAction("UI/Point", throwIfNotFound: true);
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateMoveFinger();
@@ -43,9 +42,13 @@ public class MovementUI : MonoBehaviour
             return;
         }
 
-        Vector3 direction = (position - MoveCircle.transform.position).normalized;
+        direction = (position - MoveCircle.transform.position).normalized;
         direction = new Vector3(direction.x, 0, direction.y); // 2D plane movement
 
+    }
+
+    private void FixedUpdate()
+    {
         GameManager.Instance.Player.Move(direction, Time.deltaTime);
     }
 
