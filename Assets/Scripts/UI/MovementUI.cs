@@ -49,6 +49,8 @@ public class MovementUI : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!MoveCircle.activeSelf)
+            return;
         GameManager.Instance.Player.Move(direction, Time.deltaTime);
     }
 
