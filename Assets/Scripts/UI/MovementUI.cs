@@ -44,21 +44,13 @@ public class MovementUI : MonoBehaviour
 
         direction = (position - MoveCircle.transform.position).normalized;
         direction = new Vector3(direction.x, 0, direction.y); // 2D plane movement
-
+        GameManager.Instance.Player.SetDirection(direction);
     }
-
-    private void FixedUpdate()
-    {
-        if (!MoveCircle.activeSelf)
-            return;
-        GameManager.Instance.Player.Move(direction, Time.deltaTime);
-    }
-
 
     void UpdateMoveFinger()
     {
         var ts = Touchscreen.current;
-        // 1) ÀÌµ¿ ¼Õ°¡¶ôÀÌ ¾ÆÁ÷ ¾øÀ¸¸é: UI°¡ ¾Æ´Ñ °÷¿¡¼­ "½ÃÀÛµÈ" ÅÍÄ¡¸¸ Ã¤ÅÃ
+        // 1) ì´ë™ ì†ê°€ë½ì´ ì•„ì§ ì—†ìœ¼ë©´: UIê°€ ì•„ë‹Œ ê³³ì—ì„œ "ì‹œì‘ëœ" í„°ì¹˜ë§Œ ì±„íƒ
         if (moveTouchId == -1)
         {
             if (ts != null)
@@ -70,7 +62,7 @@ public class MovementUI : MonoBehaviour
                     int id = t.touchId.ReadValue();
                     if (EventSystem.current != null &&
                         EventSystem.current.IsPointerOverGameObject(id))
-                        continue; // UI¿¡¼­ ½ÃÀÛµÈ ÅÍÄ¡´Â ¹«½Ã
+                        continue; // UIì—ì„œ ì‹œì‘ëœ í„°ì¹˜ëŠ” ë¬´ì‹œ
 
                     moveTouchId = id;
                     moveTouchPos = t.position.ReadValue();
@@ -80,7 +72,7 @@ public class MovementUI : MonoBehaviour
             return;
         }
 
-        // 2) ÀÌµ¿ ¼Õ°¡¶ôÀÌ Á¤ÇØÁ® ÀÖÀ¸¸é: ±× ¼Õ°¡¶ô¸¸ ÃßÀû
+        // 2) ì´ë™ ì†ê°€ë½ì´ ì •í•´ì ¸ ìˆìœ¼ë©´: ê·¸ ì†ê°€ë½ë§Œ ì¶”ì 
         if (ts != null)
         {
             foreach (var t in ts.touches)
@@ -95,7 +87,7 @@ public class MovementUI : MonoBehaviour
                     phase == UnityEngine.InputSystem.TouchPhase.Ended)
                 {
                     //Logger.Instance.Log($"Move finger {moveTouchId} ended at {moveTouchPos} with phase {phase}");
-                    moveTouchId = -1; // ¼Õ°¡¶ô ¶À ¡æ ÀÌµ¿ Á¾·á
+                    moveTouchId = -1; // ì†ê°€ë½ ë—Œ â†’ ì´ë™ ì¢…ë£Œ
                 }
                 break;
             }
