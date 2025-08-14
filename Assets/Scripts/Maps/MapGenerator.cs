@@ -14,6 +14,7 @@ public class MapGenerator : MonoBehaviour
     [Header("Prefabs")]
     public GameObject RoomPrefab;
     public GameObject PathPrefab;
+    public GameObject WallPrefab;
 
     public NavMeshSurface NavMeshSurface;
 
@@ -21,6 +22,7 @@ public class MapGenerator : MonoBehaviour
     Room currentRoom;
     List<List<Room>> rooms = new List<List<Room>>();
     List<Path> paths = new List<Path>();
+    List<Wall> walls = new List<Wall>();
     bool isGenerating = false;
 
     // Track previous values to detect changes
@@ -66,7 +68,6 @@ public class MapGenerator : MonoBehaviour
 #endif
     }
 
-
     void OnEnable()
     {
         if (Application.isPlaying) return;
@@ -101,15 +102,47 @@ public class MapGenerator : MonoBehaviour
                 DestroyImmediate(path.gameObject);
             }
         }
-        
+
+        foreach (var wall in walls)
+        {
+            if (wall != null && wall.gameObject != null)
+            {
+                DestroyImmediate(wall.gameObject);
+            }
+        }
+
         // Clear the lists
         rooms.Clear();
         paths.Clear();
+        walls.Clear();
 
         NavMeshSurface.RemoveData();
     }
-    
+
+    public void RebuildInEditor()
+    {
+        if (isGenerating) return;
+        isGenerating = true;
+
+#if UNITY_EDITOR
+        // Prefab Ìé∏Ïßë Î™®ÎìúÏóêÏÑ† ÎØ∏Î¶¨Î≥¥Í∏∞ ÎÅÑÍ≥† Ïã∂ÏúºÎ©¥ Ï£ºÏÑù Ï†úÍ±∞
+        // if (PrefabStageUtility.GetCurrentPrefabStage() != null) { _isGenerating = false; return; }
+#endif
+
+        Clear();
+        GenerateMap();
+        GenerateNavMesh();   // ÏóêÎîîÌÑ∞ÏóêÏÑúÎèÑ Î≤†Ïù¥ÌÅ¨ Í∞ÄÎä•
+        isGenerating = false;
+    }
+
     void GenerateMap()
+    {
+        AddRooms();
+        AddPaths();
+        AddWalls();
+    }
+
+    void AddRooms()
     {
         // Generate rooms
         for (int row = 0; row < VerticalCount; row++)
@@ -124,7 +157,10 @@ public class MapGenerator : MonoBehaviour
             }
             rooms.Add(roomRow);
         }
+    }
 
+    void AddPaths()
+    {
         // Generate horizontal paths (connecting rooms in the same row)
         for (int row = 0; row < VerticalCount; row++)
         {
@@ -150,6 +186,33 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    void AddWalls()
+    {
+        // Generate horizontal paths (connecting rooms in the same row)
+        for (int row = 0; row < VerticalCount; row++)
+        {
+            for (int col = 0; col < HorizontalCount - 1; col++)
+            {
+                Vector3 position = GetHorizontalWallPosition(row, col);
+                GameObject wallObject = Instantiate(WallPrefab, position, Quaternion.identity, transform);
+                Wall wall = wallObject.GetComponent<Wall>();
+                walls.Add(wall);
+            }
+        }
+
+        // Generate vertical walls (connecting rooms in the same column)
+        for (int row = 0; row < VerticalCount - 1; row++)
+        {
+            for (int col = 0; col < HorizontalCount; col++)
+            {
+                Vector3 position = GetVerticalWallPosition(row, col);
+                GameObject wallObject = Instantiate(WallPrefab, position, Quaternion.Euler(0, 90, 0), transform);
+                Wall wall = wallObject.GetComponent<Wall>();
+                walls.Add(wall);
+            }
+        }
+    }
+
     void GenerateNavMesh()
     {
         NavMeshSurface.RemoveData();
@@ -163,34 +226,29 @@ public class MapGenerator : MonoBehaviour
         float offsetZ = (row - (VerticalCount - 1) * 0.5f) * VerticalSpacing;
         return center.position + new Vector3(offsetX, 0, offsetZ);
     }
-
     Vector3 GetHorizontalPathPosition(int row, int col)
     {
         float offsetX = (col + 0.5f - (HorizontalCount - 1) * 0.5f) * HorizontalSpacing;
         float offsetZ = (row - (VerticalCount - 1) * 0.5f) * VerticalSpacing;
         return center.position + new Vector3(offsetX, 0, offsetZ);
     }
-
     Vector3 GetVerticalPathPosition(int row, int col)
     {
         float offsetX = (col - (HorizontalCount - 1) * 0.5f) * HorizontalSpacing;
         float offsetZ = (row + 0.5f - (VerticalCount - 1) * 0.5f) * VerticalSpacing;
         return center.position + new Vector3(offsetX, 0, offsetZ);
     }
-
-    public void RebuildInEditor()
+    Vector3 GetHorizontalWallPosition(int row, int col)
     {
-        if (isGenerating) return;
-        isGenerating = true;
-
-#if UNITY_EDITOR
-        // Prefab ∆Ì¡˝ ∏µÂø°º± πÃ∏Æ∫∏±‚ ≤Ù∞Ì ΩÕ¿∏∏È ¡÷ºÆ ¡¶∞≈
-        // if (PrefabStageUtility.GetCurrentPrefabStage() != null) { _isGenerating = false; return; }
-#endif
-
-        Clear();
-        GenerateMap();
-        GenerateNavMesh();   // ø°µ≈Õø°º≠µµ ∫£¿Ã≈© ∞°¥…
-        isGenerating = false;
+        float offsetX = (col + 0.5f - (HorizontalCount - 1) * 0.5f) * HorizontalSpacing;
+        float offsetZ = (row - (VerticalCount - 1) * 0.5f) * VerticalSpacing;
+        return center.position + new Vector3(offsetX, -1, offsetZ);
     }
+    Vector3 GetVerticalWallPosition(int row, int col)
+    {
+        float offsetX = (col - (HorizontalCount - 1) * 0.5f) * HorizontalSpacing;
+        float offsetZ = (row + 0.5f - (VerticalCount - 1) * 0.5f) * VerticalSpacing;
+        return center.position + new Vector3(offsetX, -1, offsetZ);
+    }
+    
 }
