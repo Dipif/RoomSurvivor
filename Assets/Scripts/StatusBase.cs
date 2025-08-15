@@ -1,6 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StatusBase : MonoBehaviour
 {
-    
+    [SerializeField]
+    List<string> Tags = new List<string>();
+
+    protected GameObject owner;
+    public void Initialize(GameObject owner)
+    {
+        this.owner = owner;
+    }
+
+    public void AddTag(string tag)
+    {
+        if (!Tags.Contains(tag))
+        {
+            Tags.Add(tag);
+        }
+    }
+
+    public void RemoveTag(string tag)
+    {
+        if (Tags.Contains(tag))
+        {
+            Tags.Remove(tag);
+        }
+    }
+
+    public bool HasTag(string tag)
+    {
+        return Tags.Contains(tag);
+    }
 }

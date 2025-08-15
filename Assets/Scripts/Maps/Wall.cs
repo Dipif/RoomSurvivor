@@ -1,16 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+public class Wall : MonoBehaviour, IHasAbility
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    Dictionary<string, AbilityBase> abilities = new Dictionary<string, AbilityBase>();
+
+    public WallStatus status;
+
     void Start()
     {
-        
+        status.Initialize(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    public Dictionary<string, AbilityBase> GetAbilities()
     {
-        
+        return abilities;
+    }
+
+    public StatusBase GetStatus()
+    {
+        return status;
     }
 }

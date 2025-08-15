@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Rendering;
 
 public class Character : MonoBehaviour, IHasAbility
 {
@@ -11,22 +8,20 @@ public class Character : MonoBehaviour, IHasAbility
 
     Dictionary<string, AbilityBase> abilities = new Dictionary<string, AbilityBase>();
 
-    [SerializeField]
-    CharacterStatus status;
+    public CharacterStatus status;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         foreach (var kvp in AbilityPrefabs)
         {
             var ability = Instantiate(kvp.Value, transform);
             ability.name = kvp.Key;
-            ability.Initialize(this);
+            ability.Initialize(gameObject);
             abilities.Add(kvp.Key, ability);
         }
+        status.Initialize(gameObject);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         abilities["Move"].Activate();
@@ -37,10 +32,16 @@ public class Character : MonoBehaviour, IHasAbility
         abilities["Attack"].Activate();
     }
 
+    public void OnAttackPerform()
+    {
+        abilities["Attack"].OnEvent("Perform");
+    }
+
     public void Stop()
     {
-        status.MoveDirection = Vector3.zero;
+        abilities["Move"].Deactivate();
     }
+
     public void SetDirection(Vector3 direction)
     {
         status.MoveDirection = direction.normalized;

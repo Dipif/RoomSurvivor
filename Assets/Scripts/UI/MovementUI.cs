@@ -42,8 +42,8 @@ public class MovementUI : MonoBehaviour
             return;
         }
 
-        direction = (position - MoveCircle.transform.position).normalized;
-        direction = new Vector3(direction.x, 0, direction.y); // 2D plane movement
+        direction = (position - MoveCircle.transform.position);
+        direction = new Vector3(direction.x, 0, direction.y).normalized; // 2D plane movement
         GameManager.Instance.Player.SetDirection(direction);
     }
 

@@ -10,9 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 77625095171944126}
   - component: {fileID: 1268152743577180358}
+  - component: {fileID: 5734409451457346181}
+  - component: {fileID: 8459040106769625640}
+  - component: {fileID: 9083136283886493392}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,6 +52,55 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.325, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &5734409451457346181
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443675905050482638}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 0.7, z: 0.5}
+  m_Center: {x: 0, y: 1.325, z: 0}
+--- !u!114 &8459040106769625640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443675905050482638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09a8cd7c659e0140a67755e790e1e9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: {fileID: 9083136283886493392}
+--- !u!114 &9083136283886493392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443675905050482638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed39b35eb7f7fbf4084466ecaa15730f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tags: []
+  CurrentHealth: 10
+  MaxHealth: 10
 --- !u!1001 &3498525719151360498
 PrefabInstance:
   m_ObjectHideFlags: 0
