@@ -50,10 +50,11 @@ public class MovementUI : MonoBehaviour
     void UpdateMoveFinger()
     {
         var ts = Touchscreen.current;
-        // 1) 이동 손가락이 아직 없으면: UI가 아닌 곳에서 "시작된" 터치만 채택
-        if (moveTouchId == -1)
+
+        if (ts != null)
         {
-            if (ts != null)
+            // 1) 이동 손가락이 아직 없으면: UI가 아닌 곳에서 "시작된" 터치만 채택
+            if (moveTouchId == -1)
             {
                 foreach (var t in ts.touches)
                 {
@@ -68,13 +69,9 @@ public class MovementUI : MonoBehaviour
                     moveTouchPos = t.position.ReadValue();
                     break;
                 }
+                return;
             }
-            return;
-        }
 
-        // 2) 이동 손가락이 정해져 있으면: 그 손가락만 추적
-        if (ts != null)
-        {
             foreach (var t in ts.touches)
             {
                 int id = t.touchId.ReadValue();
@@ -91,6 +88,30 @@ public class MovementUI : MonoBehaviour
                 }
                 break;
             }
+            return;
+        }
+
+        var mouse = Mouse.current;
+        if (mouse == null) return;
+
+        // UI 위에서 "새로" 누른 경우만 시작 차단
+        if (mouse.leftButton.wasPressedThisFrame)
+        {
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
+            moveTouchId = -2; // 마우스 전용 ID
+        }
+
+        // 누르고 있는 동안 계속 위치 업데이트
+        if (mouse.leftButton.isPressed && moveTouchId == -2)
+        {
+            moveTouchPos = mouse.position.ReadValue();
+            return;
+        }
+
+        // 릴리즈 프레임에 종료
+        if (mouse.leftButton.wasReleasedThisFrame && moveTouchId == -2)
+        {
+            moveTouchId = -1;
         }
     }
 }
