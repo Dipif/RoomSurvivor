@@ -13,7 +13,7 @@ public class SerializableKeyValue<K, V> where K : class
 public class SerializableDictionary<K, V> : Dictionary<K, V>, ISerializationCallbackReceiver where K : class
 {
     [SerializeField] 
-    private List<SerializableKeyValue<K, V>> _keyValueList;
+    private List<SerializableKeyValue<K, V>> _keyValueList = new List<SerializableKeyValue<K, V>>();
 
     public void OnBeforeSerialize()
     {

@@ -10,19 +10,23 @@ public class MapGenerator : MonoBehaviour
     public int VerticalCount = 3;
     public float HorizontalSpacing = 14f;
     public float VerticalSpacing = 14f;
+    public float CeilingOffsetX = 0f;
+    public float CeilingOffsetY = 3f;
+    public float CeilingOffsetZ = 0f;
 
     [Header("Prefabs")]
     public GameObject RoomPrefab;
     public GameObject PathPrefab;
     public GameObject WallPrefab;
+    public GameObject CeilingPrefab;
 
     public NavMeshSurface NavMeshSurface;
-
 
     Room currentRoom;
     List<List<Room>> rooms = new List<List<Room>>();
     List<Path> paths = new List<Path>();
     List<Wall> walls = new List<Wall>();
+    List<Ceiling> ceilings = new List<Ceiling>();
     bool isGenerating = false;
 
     // Track previous values to detect changes
@@ -93,7 +97,7 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-        
+
         // Destroy all path GameObjects
         foreach (var path in paths)
         {
@@ -111,10 +115,19 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
+        foreach (var ceiling in ceilings)
+        {
+            if (ceiling != null && ceiling.gameObject != null)
+            {
+                DestroyImmediate(ceiling.gameObject);
+            }
+        }
+
         // Clear the lists
         rooms.Clear();
         paths.Clear();
         walls.Clear();
+        ceilings.Clear();
 
         NavMeshSurface.RemoveData();
     }
@@ -140,6 +153,7 @@ public class MapGenerator : MonoBehaviour
         AddRooms();
         AddPaths();
         AddWalls();
+        AddCeilings();
     }
 
     void AddRooms()
@@ -213,13 +227,27 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    void AddCeilings()
+    {
+        // Generate rooms
+        for (int row = 0; row < VerticalCount; row++)
+        {
+            for (int col = 0; col < HorizontalCount; col++)
+            {
+                Vector3 position = GetCeilingPosition(row, col);
+                GameObject ceilingObject = Instantiate(CeilingPrefab, position, Quaternion.identity, transform);
+                Ceiling ceiling = ceilingObject.GetComponent<Ceiling>();
+                ceilings.Add(ceiling);
+            }
+        }
+    }
+
     void GenerateNavMesh()
     {
         NavMeshSurface.RemoveData();
         NavMeshSurface.BuildNavMesh();
     }
 
-    
     Vector3 GetRoomPosition(int row, int col)
     {
         float offsetX = (col - (HorizontalCount - 1) * 0.5f) * HorizontalSpacing;
@@ -250,5 +278,11 @@ public class MapGenerator : MonoBehaviour
         float offsetZ = (row + 0.5f - (VerticalCount - 1) * 0.5f) * VerticalSpacing;
         return center.position + new Vector3(offsetX, -1, offsetZ);
     }
-    
+    Vector3 GetCeilingPosition(int row, int col)
+    {
+        float offsetX = (col - (HorizontalCount - 1) * 0.5f) * HorizontalSpacing + CeilingOffsetX;
+        float offsetY = CeilingOffsetY;
+        float offsetZ = (row - (VerticalCount - 1) * 0.5f) * VerticalSpacing + CeilingOffsetZ;
+        return center.position + new Vector3(offsetX, offsetY, offsetZ);
+    }
 }

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5766557192938660492}
   - component: {fileID: 3997745262171167684}
-  - component: {fileID: 7812249568978055059}
   - component: {fileID: 295151405324903853}
   m_Layer: 0
   m_Name: Player
@@ -18,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5766557192938660492
 Transform:
   m_ObjectHideFlags: 0
@@ -54,19 +53,6 @@ MonoBehaviour:
     - Key: Attack
       Value: {fileID: -1775589903627728611, guid: 2ca0793b62c1aee4d91eac01f27a06ed, type: 3}
   status: {fileID: 295151405324903853}
---- !u!114 &7812249568978055059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4609309110908129269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56d01306c98b4bc4b9dcf770fdfce6e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 3997745262171167684}
 --- !u!114 &295151405324903853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +70,7 @@ MonoBehaviour:
   MaxHealth: 100
   AttackDamage: 10
   Speed: 5
-  MoveLockTime: 0.3
+  MoveLockTime: 0.4
   MoveLockTimer: 0
   MoveDirection: {x: 0, y: 0, z: 0}
   IsMoveLock: 0

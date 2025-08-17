@@ -83,9 +83,13 @@ MonoBehaviour:
   VerticalCount: 3
   HorizontalSpacing: 14
   VerticalSpacing: 14
-  RoomPrefab: {fileID: 1144398522746836837, guid: e0f00ef586eded24c983c9a02fa822c8, type: 3}
-  PathPrefab: {fileID: 6411271790006338421, guid: 89e1f81bc2c85f44187fd990e1ae7dc7, type: 3}
+  CeilingOffsetX: 0
+  CeilingOffsetY: 3
+  CeilingOffsetZ: 0
+  RoomPrefab: {fileID: 1144398522746836837, guid: 4920c3c245fbe774a8087061f4e5ed53, type: 3}
+  PathPrefab: {fileID: 6411271790006338421, guid: 4197ce8e06414a841a05ad56521ab06c, type: 3}
   WallPrefab: {fileID: 1443675905050482638, guid: 9e3d5b9888cdc0c4d8ab2fa7508ab935, type: 3}
+  CeilingPrefab: {fileID: 6478428932452656766, guid: c6d2adbfb2afae04696bd0050658877c, type: 3}
   NavMeshSurface: {fileID: 4604565053540794273}
 --- !u!114 &4604565053540794273
 MonoBehaviour:
