@@ -5,6 +5,10 @@ public class CharacterAttackAbility : AbilityBase
 {
     Animator animator;
 
+    [SerializeField]
+    Transform attackPoint;
+
+    public float AttackArea = 1.0f;
     public override void Initialize(GameObject owner)
     {
         base.Initialize(owner);
@@ -40,14 +44,14 @@ public class CharacterAttackAbility : AbilityBase
             CharacterStatus status = (CharacterStatus)hasAbility.GetStatus();
 
             Vector3 attackDirection = owner.transform.forward;
-            Vector3 attackPosition = owner.transform.position + Vector3.up + attackDirection * 1.0f;
+            Vector3 attackPosition = attackPoint.position;
 
             // draw box for debugging
-            Debug.DrawLine(attackPosition + Vector3.down, attackPosition + Vector3.up, Color.red, 1.0f);
-            Debug.DrawLine(attackPosition - attackDirection, attackPosition + attackDirection, Color.red, 1.0f);
+            Debug.DrawLine(attackPosition + AttackArea * Vector3.down, attackPosition + AttackArea * Vector3.up, Color.red, 1.0f);
+            Debug.DrawLine(attackPosition - AttackArea * attackDirection, attackPosition + AttackArea * attackDirection, Color.red, 1.0f);
 
 
-            Collider[] hitTargets = Physics.OverlapBox(attackPosition, new Vector3(1.0f, 1.0f, 1.0f), Quaternion.identity);
+            Collider[] hitTargets = Physics.OverlapBox(attackPosition, AttackArea * new Vector3(1.0f, 1.0f, 1.0f), Quaternion.identity);
             foreach (var target in hitTargets)
             {
                 if (target.gameObject == owner)

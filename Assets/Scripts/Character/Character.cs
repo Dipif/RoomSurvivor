@@ -4,20 +4,16 @@ using UnityEngine;
 public class Character : MonoBehaviour, IHasAbility
 {
     [SerializeField]
-    SerializableDictionary<string, AbilityBase> AbilityPrefabs = new SerializableDictionary<string, AbilityBase>();
-
-    Dictionary<string, AbilityBase> abilities = new Dictionary<string, AbilityBase>();
+    SerializableDictionary<string, AbilityBase> abilities = new SerializableDictionary<string, AbilityBase>();
 
     public CharacterStatus status;
 
     void Start()
     {
-        foreach (var kvp in AbilityPrefabs)
+        foreach (var kvp in abilities)
         {
-            var ability = Instantiate(kvp.Value, transform);
-            ability.name = kvp.Key;
+            var ability = kvp.Value;
             ability.Initialize(gameObject);
-            abilities.Add(kvp.Key, ability);
         }
         status.Initialize(gameObject);
     }

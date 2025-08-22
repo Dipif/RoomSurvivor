@@ -73,3 +73,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# ai 생성 프롬프트 및 기록 저장 폴더 제외
+/GeneratedAssets/*
+/GeneratedAssets_deleted/*

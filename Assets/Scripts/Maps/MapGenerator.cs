@@ -22,9 +22,9 @@ public class MapGenerator : MonoBehaviour
 
     public NavMeshSurface NavMeshSurface;
 
-    Room currentRoom;
-    List<List<Room>> rooms = new List<List<Room>>();
-    List<Path> paths = new List<Path>();
+    RoomBase currentRoom;
+    List<List<RoomBase>> rooms = new List<List<RoomBase>>();
+    List<RS_Path> paths = new List<RS_Path>();
     List<Wall> walls = new List<Wall>();
     List<Ceiling> ceilings = new List<Ceiling>();
     bool isGenerating = false;
@@ -161,12 +161,12 @@ public class MapGenerator : MonoBehaviour
         // Generate rooms
         for (int row = 0; row < VerticalCount; row++)
         {
-            List<Room> roomRow = new List<Room>();
+            List<RoomBase> roomRow = new List<RoomBase>();
             for (int col = 0; col < HorizontalCount; col++)
             {
                 Vector3 position = GetRoomPosition(row, col);
                 GameObject roomObject = Instantiate(RoomPrefab, position, Quaternion.identity, transform);
-                Room room = roomObject.GetComponent<Room>();
+                RoomBase room = roomObject.GetComponent<RoomBase>();
                 roomRow.Add(room);
             }
             rooms.Add(roomRow);
@@ -182,7 +182,7 @@ public class MapGenerator : MonoBehaviour
             {
                 Vector3 position = GetHorizontalPathPosition(row, col);
                 GameObject pathObject = Instantiate(PathPrefab, position, Quaternion.identity, transform);
-                Path path = pathObject.GetComponent<Path>();
+                RS_Path path = pathObject.GetComponent<RS_Path>();
                 paths.Add(path);
             }
         }
@@ -194,7 +194,7 @@ public class MapGenerator : MonoBehaviour
             {
                 Vector3 position = GetVerticalPathPosition(row, col);
                 GameObject pathObject = Instantiate(PathPrefab, position, Quaternion.Euler(0, 90, 0), transform);
-                Path path = pathObject.GetComponent<Path>();
+                RS_Path path = pathObject.GetComponent<RS_Path>();
                 paths.Add(path);
             }
         }
