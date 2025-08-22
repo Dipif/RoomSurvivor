@@ -1,25 +1,30 @@
-// Assets/Editor/TextureDownscale1024_NormalSafe.cs
+// Assets/Editor/TextureDownscale1024Simple.cs
 using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
-public static class TextureDownscale1024
+public static class TextureDownscale1024Simple
 {
-    [MenuItem("Tools/Textures/Downscale Selected PNGs To 1024 (Normal-safe)")]
-    public static void Run()
+    [MenuItem("Tools/Textures/Downscale Selected PNGs To 1024")]
+    public static void DownscaleSelectedPngsTo1024()
     {
-        var paths = CollectSelectedPngPaths();
-        if (paths.Count == 0) { Debug.LogWarning("선택된 PNG 텍스처가 없습니다."); return; }
+        var pngPaths = CollectSelectedPngPaths();
+        if (pngPaths.Count == 0)
+        {
+            Debug.LogWarning("선택된 PNG 텍스처가 없습니다.");
+            return;
+        }
 
-        int ok = 0, skip = 0;
+        int processed = 0, skipped = 0;
         AssetDatabase.StartAssetEditing();
         try
         {
-            foreach (var p in paths)
+            foreach (var path in pngPaths)
             {
-                if (ProcessOne(p)) ok++; else skip++;
+                if (ProcessOne(path)) processed++;
+                else skipped++;
             }
         }
         finally
@@ -27,12 +32,18 @@ public static class TextureDownscale1024
             AssetDatabase.StopAssetEditing();
             AssetDatabase.Refresh();
         }
-        Debug.Log($"1024 변환 완료 — 처리 {ok}개, 스킵 {skip}개");
+        Debug.Log($"PNG 1024 변환 완료 — 처리 {processed}개, 스킵 {skipped}개");
+    }
+    static bool IsDataMap(string path)
+    {
+        var n = System.IO.Path.GetFileNameWithoutExtension(path).ToLowerInvariant();
+        return n.Contains("_ao") || n.Contains("_metal") || n.Contains("_rough")
+            || n.Contains("_mask") || n.Contains("_height") || n.Contains("_disp");
     }
 
     static List<string> CollectSelectedPngPaths()
     {
-        var list = new List<string>();
+        var result = new List<string>();
         foreach (var obj in Selection.objects)
         {
             var path = AssetDatabase.GetAssetPath(obj);
@@ -44,15 +55,17 @@ public static class TextureDownscale1024
                 foreach (var g in guids)
                 {
                     var p = AssetDatabase.GUIDToAssetPath(g);
-                    if (Path.GetExtension(p).ToLowerInvariant() == ".png") list.Add(p);
+                    if (Path.GetExtension(p).ToLowerInvariant() == ".png")
+                        result.Add(p);
                 }
             }
             else
             {
-                if (Path.GetExtension(path).ToLowerInvariant() == ".png") list.Add(path);
+                if (Path.GetExtension(path).ToLowerInvariant() == ".png")
+                    result.Add(path);
             }
         }
-        return list.Distinct().ToList();
+        return result.Distinct().ToList();
     }
 
     static bool ProcessOne(string path)
@@ -60,19 +73,9 @@ public static class TextureDownscale1024
         var importer = AssetImporter.GetAtPath(path) as TextureImporter;
         if (importer == null) return false;
 
-        // 원래 임포터 세팅 백업
-        var bak = new TextureImporterSettings();
-        importer.ReadTextureSettings(bak);
-        bool wasNormal = importer.textureType == TextureImporterType.NormalMap;
-
-        // 리샘플을 "정확한 원본 RGBA"로 하기 위해, 노말맵이면 잠시 Default/선형으로 재임포트
-        if (wasNormal)
+        if (importer.textureType != TextureImporterType.NormalMap && IsDataMap(path))
         {
-            importer.textureType = TextureImporterType.Default;
-            importer.sRGBTexture = false;                  // 데이터맵은 선형
-            importer.alphaSource = TextureImporterAlphaSource.FromInput;
-            importer.npotScale = TextureImporterNPOTScale.None;
-            importer.SaveAndReimport();
+            importer.sRGBTexture = false; // 데이터 맵은 선형
         }
 
         var tex = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
@@ -80,57 +83,49 @@ public static class TextureDownscale1024
 
         // 이미 1024×1024면 스킵
         if (tex.width == 1024 && tex.height == 1024)
-        {
-            // 원래 노말맵이었다면 임포터만 복원
-            if (wasNormal) RestoreNormalImporter(importer);
             return false;
-        }
 
-        // 1024x1024 강제 리샘플 (선형로 처리)
-        var rt = new RenderTexture(1024, 1024, 0, RenderTextureFormat.ARGB32);
+        // 노말맵/선형 판단 (출력 텍스처 생성 시 사용)
+        bool outputLinear = (importer.textureType == TextureImporterType.NormalMap) || !importer.sRGBTexture;
+
+        // 1024x1024로 강제 리샘플
+        var rt = RenderTexture.GetTemporary(1024, 1024, 0, RenderTextureFormat.ARGB32);
         var prevActive = RenderTexture.active;
 
-        // 블릿 시 비선형 보정 피하려면 소스는 선형 상태가 안전
-        var prevFilter = tex.filterMode; tex.filterMode = FilterMode.Bilinear;
+        var prevFilter = tex.filterMode;
+        tex.filterMode = FilterMode.Bilinear;
+
         Graphics.Blit(tex, rt);
         RenderTexture.active = rt;
 
-        var outTex = new Texture2D(1024, 1024, TextureFormat.RGBA32, false, true); // linear
+        var outTex = new Texture2D(1024, 1024, TextureFormat.RGBA32, false, outputLinear);
         outTex.ReadPixels(new Rect(0, 0, 1024, 1024), 0, 0);
         outTex.Apply(false, false);
 
         // 복구
         tex.filterMode = prevFilter;
         RenderTexture.active = prevActive;
-        rt.Release();
+        RenderTexture.ReleaseTemporary(rt);
 
-        // PNG 덮어쓰기
-        File.WriteAllBytes(path, outTex.EncodeToPNG());
+        // PNG로 덮어쓰기
+        byte[] bytes = outTex.EncodeToPNG();
         Object.DestroyImmediate(outTex);
+        File.WriteAllBytes(path, bytes);
 
-        // 임포터 설정 적용
-        if (wasNormal)
+        // 임포터 설정 오버라이드
+        importer.maxTextureSize = 1024;
+
+        if (importer.textureType == TextureImporterType.NormalMap)
         {
-            RestoreNormalImporter(importer); // NormalMap로 복원(선형)
+            importer.textureType = TextureImporterType.NormalMap;
+            importer.sRGBTexture = false; // 노말맵은 선형
+            importer.convertToNormalmap = false; // 기존 노말맵 그대로 사용
         }
-        else
-        {
-            // 일반 텍스처: 기존 타입 유지, 단 업스케일 방지용 max size 고정
-            importer.maxTextureSize = 1024;
-            importer.SaveAndReimport();
-        }
+        // 그 외 타입은 변경하지 않음(스프라이트/디폴트 등 유지)
+
+        importer.isReadable = false; // 기본적으로 읽기 비활성
+        importer.SaveAndReimport();
 
         return true;
-    }
-
-    static void RestoreNormalImporter(TextureImporter importer)
-    {
-        importer.textureType = TextureImporterType.NormalMap;
-        importer.convertToNormalmap = false;       // 원본이 이미 노말맵이라고 가정
-        importer.sRGBTexture = false;              // 노말은 선형
-        importer.maxTextureSize = 1024;
-        importer.textureCompression = TextureImporterCompression.Uncompressed; // 필요 시 압축 옵션 조정
-        importer.normalmapFilter = TextureImporterNormalFilter.Standard;
-        importer.SaveAndReimport();
     }
 }

@@ -20,132 +20,72 @@ public class MapGenerator : MonoBehaviour
     public GameObject WallPrefab;
     public GameObject CeilingPrefab;
 
+
+    [Header("References")]
+    public RoomManager RoomManager;
     public NavMeshSurface NavMeshSurface;
 
-    RoomBase currentRoom;
-    List<List<RoomBase>> rooms = new List<List<RoomBase>>();
-    List<RS_Path> paths = new List<RS_Path>();
-    List<Wall> walls = new List<Wall>();
-    List<Ceiling> ceilings = new List<Ceiling>();
     bool isGenerating = false;
 
     // Track previous values to detect changes
-    private int previousHorizontalCount;
-    private int previousVerticalCount;
-    private float previousHorizontalSpacing;
-    private float previousVerticalSpacing;
+    private int prevHCount;
+    private int prevVCount;
+    private float prevHSpacing;
+    private float prevVSpacing;
 
     public void Start()
     {
-        // Initialize previous values
-        previousHorizontalCount = HorizontalCount;
-        previousVerticalCount = VerticalCount;
-        previousHorizontalSpacing = HorizontalSpacing;
-        previousVerticalSpacing = VerticalSpacing;
-
-        Clear();
-        GenerateMap();
-        GenerateNavMesh();
+        CachePrev();
+        RebuildAll();
     }
 
     public void Update()
     {
 #if UNITY_EDITOR
         // Check if room grid dimensions or spacing have changed
-        if (rooms.Count != VerticalCount ||
-            (rooms.Count > 0 && rooms[0].Count != HorizontalCount) ||
-            previousHorizontalCount != HorizontalCount ||
-            previousVerticalCount != VerticalCount ||
-            previousHorizontalSpacing != HorizontalSpacing ||
-            previousVerticalSpacing != VerticalSpacing)
+        if (HasParamChanged())
         {
-            Clear();
-            GenerateMap();
-            GenerateNavMesh();
-
-            // Update previous values
-            previousHorizontalCount = HorizontalCount;
-            previousVerticalCount = VerticalCount;
-            previousHorizontalSpacing = HorizontalSpacing;
-            previousVerticalSpacing = VerticalSpacing;
+            RebuildAll();
+            CachePrev();
         }
 #endif
     }
 
     void OnEnable()
     {
+#if UNITY_EDITOR
         if (Application.isPlaying) return;
-        RebuildInEditor();
+        RebuildAll();
+#endif
     }
 
     void OnDisable()
     {
+#if UNITY_EDITOR
         if (Application.isPlaying) return;
-        Clear();
+        RoomManager.ClearAll();
+#endif
     }
 
-    public void Clear()
-    {
-        // Destroy all room GameObjects
-        foreach (var roomRow in rooms)
-        {
-            foreach (var room in roomRow)
-            {
-                if (room != null && room.gameObject != null)
-                {
-                    DestroyImmediate(room.gameObject);
-                }
-            }
-        }
-
-        // Destroy all path GameObjects
-        foreach (var path in paths)
-        {
-            if (path != null && path.gameObject != null)
-            {
-                DestroyImmediate(path.gameObject);
-            }
-        }
-
-        foreach (var wall in walls)
-        {
-            if (wall != null && wall.gameObject != null)
-            {
-                DestroyImmediate(wall.gameObject);
-            }
-        }
-
-        foreach (var ceiling in ceilings)
-        {
-            if (ceiling != null && ceiling.gameObject != null)
-            {
-                DestroyImmediate(ceiling.gameObject);
-            }
-        }
-
-        // Clear the lists
-        rooms.Clear();
-        paths.Clear();
-        walls.Clear();
-        ceilings.Clear();
-
-        NavMeshSurface.RemoveData();
-    }
-
-    public void RebuildInEditor()
+    public void RebuildAll()
     {
         if (isGenerating) return;
         isGenerating = true;
 
-#if UNITY_EDITOR
-        // Prefab 편집 모드에선 미리보기 끄고 싶으면 주석 제거
-        // if (PrefabStageUtility.GetCurrentPrefabStage() != null) { _isGenerating = false; return; }
-#endif
+        if (!RoomManager) RoomManager = GetComponent<RoomManager>();
+        if (!RoomManager) RoomManager = gameObject.AddComponent<RoomManager>();
 
-        Clear();
+        RoomManager.ClearAll();
         GenerateMap();
-        GenerateNavMesh();   // 에디터에서도 베이크 가능
+        GenerateNavMesh();
+
         isGenerating = false;
+    }
+
+    public void Clear()
+    {
+        RoomManager.ClearAll();
+        NavMeshSurface.RemoveData();
     }
 
     void GenerateMap()
@@ -165,11 +105,8 @@ public class MapGenerator : MonoBehaviour
             for (int col = 0; col < HorizontalCount; col++)
             {
                 Vector3 position = GetRoomPosition(row, col);
-                GameObject roomObject = Instantiate(RoomPrefab, position, Quaternion.identity, transform);
-                RoomBase room = roomObject.GetComponent<RoomBase>();
-                roomRow.Add(room);
+                RoomManager.CreateRoom(RoomPrefab, position, Quaternion.identity, new Vector2Int(col, row));
             }
-            rooms.Add(roomRow);
         }
     }
 
@@ -181,9 +118,7 @@ public class MapGenerator : MonoBehaviour
             for (int col = 0; col < HorizontalCount - 1; col++)
             {
                 Vector3 position = GetHorizontalPathPosition(row, col);
-                GameObject pathObject = Instantiate(PathPrefab, position, Quaternion.identity, transform);
-                RS_Path path = pathObject.GetComponent<RS_Path>();
-                paths.Add(path);
+                RoomManager.CreatePath(PathPrefab, position, Quaternion.identity);
             }
         }
 
@@ -193,9 +128,7 @@ public class MapGenerator : MonoBehaviour
             for (int col = 0; col < HorizontalCount; col++)
             {
                 Vector3 position = GetVerticalPathPosition(row, col);
-                GameObject pathObject = Instantiate(PathPrefab, position, Quaternion.Euler(0, 90, 0), transform);
-                RS_Path path = pathObject.GetComponent<RS_Path>();
-                paths.Add(path);
+                RoomManager.CreatePath(PathPrefab, position, Quaternion.Euler(0, 90, 0));
             }
         }
     }
@@ -208,9 +141,7 @@ public class MapGenerator : MonoBehaviour
             for (int col = 0; col < HorizontalCount - 1; col++)
             {
                 Vector3 position = GetHorizontalWallPosition(row, col);
-                GameObject wallObject = Instantiate(WallPrefab, position, Quaternion.identity, transform);
-                Wall wall = wallObject.GetComponent<Wall>();
-                walls.Add(wall);
+                RoomManager.CreateWall(WallPrefab, position, Quaternion.identity);
             }
         }
 
@@ -220,9 +151,7 @@ public class MapGenerator : MonoBehaviour
             for (int col = 0; col < HorizontalCount; col++)
             {
                 Vector3 position = GetVerticalWallPosition(row, col);
-                GameObject wallObject = Instantiate(WallPrefab, position, Quaternion.Euler(0, 90, 0), transform);
-                Wall wall = wallObject.GetComponent<Wall>();
-                walls.Add(wall);
+                RoomManager.CreateWall(WallPrefab, position, Quaternion.Euler(0, 90, 0));
             }
         }
     }
@@ -235,11 +164,24 @@ public class MapGenerator : MonoBehaviour
             for (int col = 0; col < HorizontalCount; col++)
             {
                 Vector3 position = GetCeilingPosition(row, col);
-                GameObject ceilingObject = Instantiate(CeilingPrefab, position, Quaternion.identity, transform);
-                Ceiling ceiling = ceilingObject.GetComponent<Ceiling>();
-                ceilings.Add(ceiling);
+                RoomManager.CreateCeiling(CeilingPrefab, position, Quaternion.identity);
             }
         }
+    }
+    bool HasParamChanged()
+    {
+        return prevHCount != HorizontalCount
+            || prevVCount != VerticalCount
+            || !Mathf.Approximately(prevHSpacing, HorizontalSpacing)
+            || !Mathf.Approximately(prevVSpacing, VerticalSpacing);
+    }
+
+    void CachePrev()
+    {
+        prevHCount = HorizontalCount;
+        prevVCount = VerticalCount;
+        prevHSpacing = HorizontalSpacing;
+        prevVSpacing = VerticalSpacing;
     }
 
     void GenerateNavMesh()

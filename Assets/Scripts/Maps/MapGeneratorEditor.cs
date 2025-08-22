@@ -15,12 +15,12 @@ public class MapGeneratorEditor : Editor
         {
             if (GUILayout.Button("Preview Generate"))
             {
-                gen.RebuildInEditor();   // ¡ç Á÷Á¢ È£Ãâ
-                GUIUtility.ExitGUI();    // ¡ç GUI ·çÇÁ Á¾·á(Assert ¿¹¹æ)
+                gen.RebuildAll();   // â† ì§ì ‘ í˜¸ì¶œ
+                GUIUtility.ExitGUI();    // â† GUI ë£¨í”„ ì¢…ë£Œ(Assert ì˜ˆë°©)
             }
             if (GUILayout.Button("Clear Preview"))
             {
-                gen.Clear();          // ¡ç Á÷Á¢ È£Ãâ (publicÀÌ¾î¾ß ÇÔ)
+                gen.Clear();          // â† ì§ì ‘ í˜¸ì¶œ (publicì´ì–´ì•¼ í•¨)
                 GUIUtility.ExitGUI();
             }
         }
@@ -38,7 +38,7 @@ static class MapPreviewAutoClear
 
     static void OnPlayModeStateChanged(PlayModeStateChange state)
     {
-        // ¿¡µğÅÍ -> ÇÃ·¹ÀÌ·Î ³Ñ¾î°¡±â Á÷Àü
+        // ì—ë””í„° -> í”Œë ˆì´ë¡œ ë„˜ì–´ê°€ê¸° ì§ì „
         if (state == PlayModeStateChange.ExitingEditMode)
         {
             foreach (var gen in Object.FindObjectsByType<MapGenerator>(FindObjectsSortMode.None))
