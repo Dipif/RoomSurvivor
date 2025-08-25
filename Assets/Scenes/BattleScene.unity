@@ -586,6 +586,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3722769314883602519, guid: 596907fb821e255418070be06058afa3, type: 3}
+      propertyPath: BossRoomPrefab
+      value: 
+      objectReference: {fileID: 4885354477855526576, guid: eaca9be68677bb4468dafe31c8b7ef5a, type: 3}
+    - target: {fileID: 3722769314883602519, guid: 596907fb821e255418070be06058afa3, type: 3}
+      propertyPath: LevelRoomPrefab
+      value: 
+      objectReference: {fileID: 4885354477855526576, guid: 7741fe9ad1de5d24baa3b767555bc4d9, type: 3}
+    - target: {fileID: 3722769314883602519, guid: 596907fb821e255418070be06058afa3, type: 3}
+      propertyPath: SkillRoomPrefab
+      value: 
+      objectReference: {fileID: 4885354477855526576, guid: f87553a9febf2594db419cd9f3ba8ab3, type: 3}
+    - target: {fileID: 3722769314883602519, guid: 596907fb821e255418070be06058afa3, type: 3}
+      propertyPath: NormalRoomPrefab
+      value: 
+      objectReference: {fileID: 1144398522746836837, guid: 4920c3c245fbe774a8087061f4e5ed53, type: 3}
     - target: {fileID: 3858576537998135462, guid: 596907fb821e255418070be06058afa3, type: 3}
       propertyPath: m_Name
       value: Map

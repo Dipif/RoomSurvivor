@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.AI.Navigation;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
@@ -15,7 +16,10 @@ public class MapGenerator : MonoBehaviour
     public float CeilingOffsetZ = 0f;
 
     [Header("Prefabs")]
-    public GameObject RoomPrefab;
+    public GameObject LevelRoomPrefab;
+    public GameObject SkillRoomPrefab;
+    public GameObject BossRoomPrefab;
+    public GameObject NormalRoomPrefab;
     public GameObject PathPrefab;
     public GameObject WallPrefab;
     public GameObject CeilingPrefab;
@@ -98,14 +102,43 @@ public class MapGenerator : MonoBehaviour
 
     void AddRooms()
     {
-        // Generate rooms
+
+        int totalRooms = HorizontalCount * VerticalCount;
+
+        // 3개의 특수룸 위치를 중복 없이 랜덤하게 선정
+        System.Random rand = new System.Random();
+        HashSet<int> specialRoomIndices = new HashSet<int>();
+        while (specialRoomIndices.Count < 3)
+        {
+            specialRoomIndices.Add(rand.Next(totalRooms));
+        }
+
+        int[] indices = new int[3];
+        specialRoomIndices.CopyTo(indices);
+
+        int skillRoomIndex = indices[0];
+        int bossRoomIndex = indices[1];
+        int levelRoomIndex = indices[2];
+
+
+        int roomIdx = 0;
         for (int row = 0; row < VerticalCount; row++)
         {
-            List<RoomBase> roomRow = new List<RoomBase>();
             for (int col = 0; col < HorizontalCount; col++)
             {
                 Vector3 position = GetRoomPosition(row, col);
-                RoomManager.CreateRoom(RoomPrefab, position, Quaternion.identity, new Vector2Int(col, row));
+                GameObject prefabToUse;
+                if (roomIdx == skillRoomIndex)
+                    prefabToUse = SkillRoomPrefab;
+                else if (roomIdx == bossRoomIndex)
+                    prefabToUse = BossRoomPrefab;
+                else if (roomIdx == levelRoomIndex)
+                    prefabToUse = LevelRoomPrefab;
+                else
+                    prefabToUse = NormalRoomPrefab;
+
+                RoomManager.CreateRoom(prefabToUse, position, Quaternion.identity, new Vector2Int(col, row));
+                roomIdx++;
             }
         }
     }
