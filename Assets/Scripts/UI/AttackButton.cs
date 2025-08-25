@@ -18,11 +18,7 @@ public class AttackButton : MonoBehaviour
 
     private void HandleCurrentChanged(IInteractable interactable)
     {
-        if (interactable == null)
-        {
-            button.gameObject.SetActive(true);
-        }
-        button.gameObject.SetActive(false);
+        button.gameObject.SetActive(interactable == null);
     }
 
     public void OnClick()

@@ -110,7 +110,10 @@ public class MapGenerator : MonoBehaviour
         HashSet<int> specialRoomIndices = new HashSet<int>();
         while (specialRoomIndices.Count < 3)
         {
-            specialRoomIndices.Add(rand.Next(totalRooms));
+            int idx = rand.Next(totalRooms);
+            if (idx == totalRooms / 2) // 중앙 방 제외
+                continue;
+            specialRoomIndices.Add(idx);
         }
 
         int[] indices = new int[3];

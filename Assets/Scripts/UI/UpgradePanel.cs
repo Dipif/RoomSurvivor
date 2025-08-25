@@ -37,11 +37,8 @@ public class UpgradePanel : MonoBehaviour
         {
             var option = options[i];
             var buttonObj = Instantiate(buttonPrefab, root.transform);
-            var button = buttonObj.GetComponent<Button>();
-            var text = buttonObj.GetComponentInChildren<Text>();
-            text.text = option.Title + "\n" + option.Description;
-            int idx = i; // Capture index for the lambda
-            button.onClick.AddListener(() => Choose(idx));
+            UpgradeButton upgradeButton = buttonObj.GetComponent<UpgradeButton>();
+            upgradeButton.Init(option.Title, option.Description, ()=> Choose(i));
         }
         root.SetActive(true);
     }
@@ -53,7 +50,7 @@ public class UpgradePanel : MonoBehaviour
 
     private void Choose(int idx)
     {
-
+        Debug.Log($"Chosen upgrade option {idx}");
     }
 
 }
