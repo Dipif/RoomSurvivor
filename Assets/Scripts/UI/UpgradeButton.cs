@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,7 @@ public class UpgradeButton : Button
 {
     public void Init(string title, string description, System.Action onClick)
     {
-        var text = GetComponentInChildren<Text>();
+        var text = GetComponentInChildren<TextMeshProUGUI>();
         if (text != null)
         {
             text.text = title + "\n" + description;

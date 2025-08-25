@@ -12,11 +12,13 @@ public class UIInteractionButton : MonoBehaviour
     private void OnEnable()
     {
         InteractionEvents.OnCurrentChanged += HandleCurrentChanged;
+        InteractionEvents.OnOpenUpgradePanel += (_,_) => button.gameObject.SetActive(false);
     }
 
     private void OnDisable()
     {
         InteractionEvents.OnCurrentChanged -= HandleCurrentChanged;
+        InteractionEvents.OnOpenUpgradePanel -= (_,_) => button.gameObject.SetActive(false);
     }
 
     private void HandleCurrentChanged(IInteractable interactable)

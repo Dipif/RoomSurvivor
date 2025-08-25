@@ -6,12 +6,23 @@ public class PlayerInteractor : MonoBehaviour
     private readonly List<IInteractable> candidates = new List<IInteractable>();
     public IInteractable Current { get; private set; }
 
+    public void OnEnable()
+    {
+        InteractionEvents.OnCloseUpgradePanel += HandleClosePanel;
+        InteractionEvents.RaiseCurrentChanged(Current);
+    }
+
+    public void OnDisable()
+    {
+        InteractionEvents.OnCloseUpgradePanel -= HandleClosePanel;
+    }
+
     public void AddCandidate(IInteractable interactable)
     {
         if (!candidates.Contains(interactable))
         {
             candidates.Add(interactable);
-            UpdateCurrent();
+            RefreshCurrent();
         }
     }
 
@@ -20,8 +31,14 @@ public class PlayerInteractor : MonoBehaviour
         if (candidates.Contains(interactable))
         {
             candidates.Remove(interactable);
-            UpdateCurrent();
+            RefreshCurrent();
         }
+    }
+
+    public void RefreshCurrent()
+    {
+        UpdateCurrent();
+        InteractionEvents.RaiseCurrentChanged(Current);
     }
 
     private void UpdateCurrent()
@@ -41,7 +58,11 @@ public class PlayerInteractor : MonoBehaviour
         if (newCurrent != Current)
         {
             Current = newCurrent;
-            InteractionEvents.RaiseCurrentChanged(Current);
         }
+    }
+
+    private void HandleClosePanel()
+    {
+        RefreshCurrent();
     }
 }
