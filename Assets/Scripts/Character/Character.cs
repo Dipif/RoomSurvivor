@@ -18,29 +18,22 @@ public class Character : MonoBehaviour, IHasAbility
         status.Initialize(gameObject);
     }
 
-    void FixedUpdate()
-    {
-        abilities["Move"].Activate();
-    }
-
     public void Attack()
     {
         abilities["Attack"].Activate();
     }
 
-    public void OnAttackPerform()
+    public void OnAbilityAnimationCallback(string eventName)
     {
-        abilities["Attack"].OnEvent("Perform");
+        foreach (var ability in abilities.Values)
+        {
+            ability.OnEvent(eventName);
+        }
     }
 
     public void Stop()
     {
         abilities["Move"].Deactivate();
-    }
-
-    public void SetDirection(Vector3 direction)
-    {
-        status.MoveDirection = direction.normalized;
     }
 
     public Dictionary<string, AbilityBase> GetAbilities()

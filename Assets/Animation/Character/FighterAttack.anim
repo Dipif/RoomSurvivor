@@ -62170,8 +62170,8 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.5
-    functionName: OnAttackPerform
-    data: 
+    functionName: OnAbilityAnimationCallback
+    data: AttackHit
     objectReferenceParameter: {fileID: 4609309110908129269, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
     floatParameter: 0
     intParameter: 0

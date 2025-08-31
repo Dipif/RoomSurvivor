@@ -4,8 +4,8 @@ public class CharacterAnimationCallback : MonoBehaviour
 {
     [SerializeField]
     Character Character;
-    public void OnAttackPerform()
+    public void OnAbilityAnimationCallback(AnimationEvent e)
     {
-        Character.OnAttackPerform();
+        Character.OnAbilityAnimationCallback(e.stringParameter);
     }
 }

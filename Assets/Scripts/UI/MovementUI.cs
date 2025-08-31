@@ -44,7 +44,7 @@ public class MovementUI : MonoBehaviour
 
         direction = (position - MoveCircle.transform.position);
         direction = new Vector3(direction.x, 0, direction.y).normalized; // 2D plane movement
-        GameManager.Instance.Player.SetDirection(direction);
+        ((CharacterStatus)GameManager.Instance.Player.GetStatus()).MoveDirection = direction;
     }
 
     void UpdateMoveFinger()

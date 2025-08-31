@@ -6,7 +6,7 @@ public class StatusBase : MonoBehaviour
     [SerializeField]
     List<string> Tags = new List<string>();
 
-    protected GameObject owner;
+    protected GameObject owner { get; private set; }
     public void Initialize(GameObject owner)
     {
         this.owner = owner;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterMoveAbility : AbilityBase
+public class EnemyMoveAbility : AbilityBase
 {
     Animator animator;
     public override void Initialize(GameObject owner)
@@ -15,16 +15,6 @@ public class CharacterMoveAbility : AbilityBase
     {
         IHasAbility hasAbility = owner.GetComponent<IHasAbility>();
         CharacterStatus status = (CharacterStatus)hasAbility.GetStatus();
-        if (status.IsMoveLock)
-        {
-            status.MoveLockTimer += Time.fixedDeltaTime;
-            if (status.MoveLockTimer >= status.MoveLockTime)
-            {
-                status.IsMoveLock = false;
-                status.MoveLockTimer = 0f;
-            }
-            return;
-        }
         if (status.MoveDirection == Vector3.zero)
             return;
 
