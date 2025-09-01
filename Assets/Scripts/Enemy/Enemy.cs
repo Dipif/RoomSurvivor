@@ -4,12 +4,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IHasAbility
 {
     [SerializeField]
-    SerializableDictionary<string, AbilityBase> AbilityPrefabs = new SerializableDictionary<string, AbilityBase>();
-
-    Dictionary<string, AbilityBase> abilities = new Dictionary<string, AbilityBase>();
+    SerializableDictionary<string, AbilityBase> abilities = new SerializableDictionary<string, AbilityBase>();
 
     [SerializeField]
-    CharacterStatus status;
+    StatusBase status;
 
     public Dictionary<string, AbilityBase> GetAbilities()
     {
@@ -20,16 +18,12 @@ public class Enemy : MonoBehaviour, IHasAbility
     {
         return status;
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Init()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach (var kvp in abilities)
+        {
+            kvp.Value.Initialize(gameObject);
+        }
+        status.Initialize(gameObject);
     }
 }

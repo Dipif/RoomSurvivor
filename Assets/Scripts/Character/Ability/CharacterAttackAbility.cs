@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class CharacterAttackAbility : AbilityBase
 {
+    [SerializeField]
     Animator animator;
 
     [SerializeField]
     Transform attackPoint;
 
-    public float AttackArea = 1.0f;
+    public float AttackArea = 0.1f;
     public override void Initialize(GameObject owner)
     {
         base.Initialize(owner);
@@ -49,7 +50,7 @@ public class CharacterAttackAbility : AbilityBase
         Debug.DrawLine(attackPosition - AttackArea * attackDirection, attackPosition + AttackArea * attackDirection, Color.red, 1.0f);
 
 
-        Collider[] hitTargets = Physics.OverlapBox(attackPosition, AttackArea * new Vector3(1.0f, 1.0f, 1.0f), Quaternion.identity);
+        Collider[] hitTargets = Physics.OverlapBox(attackPosition, new Vector3(AttackArea, 1.0f, AttackArea), Quaternion.identity);
         foreach (var target in hitTargets)
         {
             if (target.gameObject == owner)

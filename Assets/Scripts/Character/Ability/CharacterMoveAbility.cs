@@ -3,12 +3,14 @@ using UnityEngine.AI;
 
 public class CharacterMoveAbility : AbilityBase
 {
+    [SerializeField]
     Animator animator;
     public override void Initialize(GameObject owner)
     {
         base.Initialize(owner);
 
-        animator = owner.GetComponentInChildren<Animator>();
+        if (animator == null)
+            Debug.LogError("Animator is not assigned in CharacterMoveAbility");
     }
 
     public override void Activate()
