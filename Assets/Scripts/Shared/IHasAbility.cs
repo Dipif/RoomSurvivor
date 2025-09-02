@@ -5,4 +5,6 @@ public interface IHasAbility
 {
     Dictionary<string, AbilityBase> GetAbilities();
     StatusBase GetStatus();
+
+    void OnAbilityEvent(string eventName);
 }

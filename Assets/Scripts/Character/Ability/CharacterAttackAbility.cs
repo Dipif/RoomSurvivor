@@ -10,6 +10,7 @@ public class CharacterAttackAbility : AbilityBase
     Transform attackPoint;
 
     public float AttackArea = 0.1f;
+    public float BaseDamage = 10f;
     public override void Initialize(GameObject owner)
     {
         base.Initialize(owner);
@@ -59,11 +60,11 @@ public class CharacterAttackAbility : AbilityBase
             // target gameobject가 Enemy인지 확인
             if (target.TryGetComponent<Enemy>(out Enemy enemy))
             {
-                ((EnemyStatus)enemy.GetStatus()).TakeDamage(10);
+                ((EnemyStatus)enemy.GetStatus()).TakeDamage(BaseDamage);
             }
             if (target.TryGetComponent<Wall>(out Wall wall))
             {
-                ((WallStatus)wall.GetStatus()).TakeDamage(10);
+                ((WallStatus)wall.GetStatus()).TakeDamage(BaseDamage);
             }
         }
     }

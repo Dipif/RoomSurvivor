@@ -21,4 +21,9 @@ public class Wall : MonoBehaviour, IHasAbility
     {
         return status;
     }
+
+    public void OnAbilityEvent(string eventName)
+    {
+        throw new System.NotImplementedException();
+    }
 }

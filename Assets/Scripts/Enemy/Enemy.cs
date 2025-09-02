@@ -18,6 +18,12 @@ public class Enemy : MonoBehaviour, IHasAbility
     {
         return status;
     }
+
+    public void OnAbilityEvent(string eventName)
+    {
+        throw new System.NotImplementedException();
+    }
+
     protected virtual void Init()
     {
         foreach (var kvp in abilities)

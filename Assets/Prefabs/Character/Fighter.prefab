@@ -56,6 +56,8 @@ MonoBehaviour:
       Value: {fileID: 4652745207864489946}
     - Key: Attack
       Value: {fileID: 8175408001914768045}
+    - Key: SuperPunch
+      Value: {fileID: 136182897972726248}
   status: {fileID: 295151405324903853}
 --- !u!114 &295151405324903853
 MonoBehaviour:
@@ -167,8 +169,94 @@ Transform:
   m_Children:
   - {fileID: 566409635058980429}
   - {fileID: 6840630272313081648}
+  - {fileID: 5888638885305067920}
   m_Father: {fileID: 5766557192938660492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &389071126318497129
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3261055845604416969}
+    m_Modifications:
+    - target: {fileID: 325828996849136769, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: attackHeight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 325828996849136769, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: baseCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938775076798829781, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_Name
+      value: Fist
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538250084243489857, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+      propertyPath: m_Name
+      value: SuperPunchAbility
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+--- !u!114 &136182897972726248 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 325828996849136769, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+  m_PrefabInstance: {fileID: 389071126318497129}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33a64830520ada741902737c408d5c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SuperPunchAbility
+--- !u!4 &5888638885305067920 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6115580418595624185, guid: 128be7f562cca984f8c0d8b3a069f2d1, type: 3}
+  m_PrefabInstance: {fileID: 389071126318497129}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1598553708667061168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -177,6 +265,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3261055845604416969}
     m_Modifications:
+    - target: {fileID: -1775589903627728611, guid: 2ca0793b62c1aee4d91eac01f27a06ed, type: 3}
+      propertyPath: loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1775589903627728611, guid: 2ca0793b62c1aee4d91eac01f27a06ed, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 3272375350643713455}
+    - target: {fileID: -1775589903627728611, guid: 2ca0793b62c1aee4d91eac01f27a06ed, type: 3}
+      propertyPath: AttackArea
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1775589903627728611, guid: 2ca0793b62c1aee4d91eac01f27a06ed, type: 3}
+      propertyPath: baseCooldown
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5242745072167615616, guid: 2ca0793b62c1aee4d91eac01f27a06ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -220,6 +324,10 @@ PrefabInstance:
     - target: {fileID: 7797227833964267777, guid: 2ca0793b62c1aee4d91eac01f27a06ed, type: 3}
       propertyPath: m_Name
       value: CharacterAttackAbility
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797227833964267777, guid: 2ca0793b62c1aee4d91eac01f27a06ed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -449,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da16e9ddefc5db41898f6280a7194b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Character: {fileID: 3997745262171167684}
+  hasAbilitySource: {fileID: 3997745262171167684}
 --- !u!4 &8901924176128982997 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7be362f8faa3eef469037f95335435f4, type: 3}

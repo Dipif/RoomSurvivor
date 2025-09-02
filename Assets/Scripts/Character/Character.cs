@@ -23,7 +23,7 @@ public class Character : MonoBehaviour, IHasAbility
         abilities["Attack"].Activate();
     }
 
-    public void OnAbilityAnimationCallback(string eventName)
+    public void OnAbilityEvent(string eventName)
     {
         foreach (var ability in abilities.Values)
         {
