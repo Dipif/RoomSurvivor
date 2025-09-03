@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour, IHasAbility
         throw new System.NotImplementedException();
     }
 
-    protected virtual void Init()
+    public virtual void Init()
     {
         foreach (var kvp in abilities)
         {

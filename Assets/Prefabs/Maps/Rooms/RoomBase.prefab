@@ -264,6 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2549002619378918224}
   - component: {fileID: 6520054301127443876}
+  - component: {fileID: 3931774715712067211}
   m_Layer: 10
   m_Name: RoomBase
   m_TagString: Untagged
@@ -323,6 +324,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9406b21b040b2943be5ddb0c78c2228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &3931774715712067211
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144398522746836837}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 1, z: 10}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1 &3902642207689200535
 GameObject:
   m_ObjectHideFlags: 0

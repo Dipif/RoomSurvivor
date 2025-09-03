@@ -8,7 +8,7 @@ public class UpgradePanel : MonoBehaviour
     private GameObject root;
 
     [SerializeField]
-    private UpgradeButton buttonPrefab;
+    private HUD_UpgradeItem buttonPrefab;
 
     private List<UpgradeOption> options;
     private PlayerInteractor interactor;
@@ -37,7 +37,7 @@ public class UpgradePanel : MonoBehaviour
         {
             var option = options[i];
             var buttonObj = Instantiate(buttonPrefab, root.transform);
-            UpgradeButton upgradeButton = buttonObj.GetComponent<UpgradeButton>();
+            HUD_UpgradeItem upgradeButton = buttonObj.GetComponent<HUD_UpgradeItem>();
             upgradeButton.Init(option.Title, option.Description, ()=> Choose(i));
         }
         root.SetActive(true);

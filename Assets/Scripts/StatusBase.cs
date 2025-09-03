@@ -7,7 +7,7 @@ public class StatusBase : MonoBehaviour
     List<string> Tags = new List<string>();
 
     protected GameObject owner { get; private set; }
-    public void Initialize(GameObject owner)
+    public virtual void Initialize(GameObject owner)
     {
         this.owner = owner;
     }

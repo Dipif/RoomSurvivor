@@ -14,11 +14,38 @@ public class RoomManager : MonoBehaviour
     List<Wall> walls = new List<Wall>();
     List<Ceiling> ceilings = new List<Ceiling>();
 
-    RoomBase currentRoom;
+    public RoomBase CurrentRoom;
 
     private void Awake()
     {
         EnsureRoots();
+    }
+
+    private void OnEnable()
+    {
+        RoomEvents.OnRoomEntered += (room) =>
+        {
+            CurrentRoom = room;
+        };
+
+        RoomEvents.OnRoomExited += (room) =>
+        {
+            if (room == CurrentRoom)
+                CurrentRoom = null;
+        };
+    }
+
+    private void OnDisable()
+    {
+        RoomEvents.OnRoomEntered -= (room) =>
+        {
+            CurrentRoom = room;
+        };
+        RoomEvents.OnRoomExited -= (room) =>
+        {
+            if (room == CurrentRoom)
+                CurrentRoom = null;
+        };
     }
 
     void EnsureRoots()

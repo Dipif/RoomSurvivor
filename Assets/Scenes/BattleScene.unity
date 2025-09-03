@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &12741002 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7149617863566856189, guid: 596907fb821e255418070be06058afa3, type: 3}
+  m_PrefabInstance: {fileID: 975223053}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc8679077ee637640951cb6b31c760b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomManager
 --- !u!1 &28160057
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,10 +470,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 136182897972726248, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
-      propertyPath: baseCooldown
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4609309110908129269, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
       propertyPath: m_Name
       value: Fighter
@@ -506,14 +513,6 @@ PrefabInstance:
     - target: {fileID: 5766557192938660492, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8175408001914768045, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
-      propertyPath: BaseDamage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8175408001914768045, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
-      propertyPath: baseCooldown
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1038,7 +1037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1498807475
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1360,7 +1359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePanel
   root: {fileID: 1034044156}
-  buttonPrefab: {fileID: 1148305446222962969, guid: d75d03962fcbc614582a489ccb23b122, type: 3}
+  buttonPrefab: {fileID: 4681440928387131343, guid: a4bcccf7187beba48878293678772cc0, type: 3}
 --- !u!1 &1890057171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,6 +1524,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1963522527}
   - component: {fileID: 1963522528}
+  - component: {fileID: 1963522529}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1560,7 +1560,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   Player: {fileID: 761767131}
-  RoomManager: {fileID: 0}
+  RoomManager: {fileID: 12741002}
+--- !u!114 &1963522529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963522526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fa2a7a846fa84db559f829e5ca9a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawn
+  enemyPrefab: {fileID: 5977967627260147935, guid: c0587196897a46a4e825919e3e145d56, type: 3}
+  enemies: []
+  spawnInterval: 0.5
 --- !u!1 &2080401761
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,16 +2,21 @@ using UnityEngine;
 
 public class RoomBase : MonoBehaviour
 {
-    
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
+        var player = other.GetComponent<Character>();
+        if (player != null)
+        {
+            RoomEvents.RaiseRoomEntered(this);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        
+        var player = other.GetComponent<Character>();
+        if (player != null)
+        {
+            RoomEvents.RaiseRoomExited(this);
+        }
     }
 }
