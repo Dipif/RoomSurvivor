@@ -8,6 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8030511904631896709}
     m_Modifications:
+    - target: {fileID: 1967622182676300893, guid: 8eed5e5adaf4c934ba830171900a4c45, type: 3}
+      propertyPath: allOptions.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967622182676300893, guid: 8eed5e5adaf4c934ba830171900a4c45, type: 3}
+      propertyPath: 'allOptions.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a9aa9572682575640beedb86e1c9a8a3, type: 2}
+    - target: {fileID: 1967622182676300893, guid: 8eed5e5adaf4c934ba830171900a4c45, type: 3}
+      propertyPath: 'allOptions.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b30e5a09d86db384295d8012e43cb22d, type: 2}
+    - target: {fileID: 1967622182676300893, guid: 8eed5e5adaf4c934ba830171900a4c45, type: 3}
+      propertyPath: 'allOptions.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4de3b836fae0cef429e130fc8ad41861, type: 2}
     - target: {fileID: 5004030585651606751, guid: 8eed5e5adaf4c934ba830171900a4c45, type: 3}
       propertyPath: m_Name
       value: AltarInteract
