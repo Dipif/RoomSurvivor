@@ -38,7 +38,7 @@ public class UpgradePanel : MonoBehaviour
             var option = options[i];
             var buttonObj = Instantiate(buttonPrefab, root.transform);
             HUD_UpgradeItem upgradeButton = buttonObj.GetComponent<HUD_UpgradeItem>();
-            upgradeButton.Init(option.Title, option.Description, ()=> Choose(i));
+            upgradeButton.Init(option, ()=> Choose(i));
         }
         root.SetActive(true);
     }

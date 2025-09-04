@@ -75,7 +75,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1967622182676300893, guid: 8eed5e5adaf4c934ba830171900a4c45, type: 3}
       propertyPath: allOptions.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1967622182676300893, guid: 8eed5e5adaf4c934ba830171900a4c45, type: 3}
       propertyPath: 'allOptions.Array.data[0]'
@@ -85,6 +85,10 @@ PrefabInstance:
       propertyPath: 'allOptions.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: b52a8719310fd2842b27bc6489ad2f76, type: 2}
+    - target: {fileID: 1967622182676300893, guid: 8eed5e5adaf4c934ba830171900a4c45, type: 3}
+      propertyPath: 'allOptions.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c62b6042257f3f84b9bad0c70dd39f13, type: 2}
     - target: {fileID: 5004030585651606751, guid: 8eed5e5adaf4c934ba830171900a4c45, type: 3}
       propertyPath: m_Name
       value: AltarInteract

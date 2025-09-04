@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33718db972d9c7844bcc19e643690cbb, type: 3}
-  m_Name: Skill2Upgrade
+  m_Name: SuperPunchDamageUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeOption
   Title: Skill 2 Upgreade
   Description: Upgrade!

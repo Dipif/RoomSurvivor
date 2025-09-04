@@ -7,17 +7,20 @@ public class HUD_UpgradeItem : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI descriptionText;
 
-    public void Init(string title, string description, System.Action onClick)
+    [SerializeField]
+    UpgradeOption upgradeOption;
+
+    public void Init(UpgradeOption option, System.Action onClick)
     {
+        upgradeOption = option;
         if (descriptionText != null)
         {
-            descriptionText.text = title + "\n" + description;
+            descriptionText.text = option.Title + "\n" + option.Description;
         }
     }
     public void OnClick()
     {
-        // This method will be linked to the button's OnClick event in the Unity Editor.
-        Debug.Log("Upgrade button clicked!");
+        UpgradeService.ApplyTo(GameManager.Instance.Player.gameObject, upgradeOption);
         InteractionEvents.RaiseCloseUpgradePanel();
     }
 }

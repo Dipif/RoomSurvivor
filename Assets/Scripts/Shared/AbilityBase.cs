@@ -12,13 +12,13 @@ public class AbilityBase : MonoBehaviour
     bool loop = false;
 
     protected GameObject owner;
-    virtual public void Initialize(GameObject owner)
+    public virtual void Initialize(GameObject owner)
     {
         this.owner = owner;
         cooldown = baseCooldown;
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (remainingCooldown > 0)
         {
@@ -34,11 +34,11 @@ public class AbilityBase : MonoBehaviour
             remainingCooldown = cooldown;
         }
     }
-    virtual public bool CanActivate()
+    public virtual bool CanActivate()
     {
         return remainingCooldown == 0;
     }
-    virtual public void Activate() { }
-    virtual public void Deactivate() { }
-    virtual public void OnEvent(string eventName) { }
+    public virtual void Activate() { }
+    public virtual void Deactivate() { }
+    public virtual void OnEvent(string eventName) { }
 }
