@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 
     public Character Player;
     public RoomManager RoomManager;
+
+    public int Gold = 0;
+    public int Score = 0;
     void Awake()
     {
         if (Instance == null)
@@ -17,5 +20,17 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Init();
+    }
+
+    void Init()
+    {
+        Gold = 0;
+        Score = 0;
+    }
+
+    public RoomBase GetCurrentRoom()
+    {
+        return RoomManager.CurrentRoom;
     }
 }

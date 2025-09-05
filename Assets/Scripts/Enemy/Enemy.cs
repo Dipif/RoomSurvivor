@@ -32,4 +32,12 @@ public class Enemy : MonoBehaviour, IHasAbility
         }
         status.Initialize(gameObject);
     }
+
+    public virtual void OnDied()
+    {
+        var currentRoom = GameManager.Instance.GetCurrentRoom();
+        GameManager.Instance.Gold += 1;
+        GameManager.Instance.Score += 1;
+        gameObject.SetActive(false);
+    }
 }

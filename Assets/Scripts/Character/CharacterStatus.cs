@@ -5,21 +5,23 @@ public class CharacterStatus : StatusBase
     public float CurrentHealth = 100f;
     public float MaxHealth = 100f;
     public float AttackDamage = 10f;
-    public float Speed = 5f;
-    public float SuperPunchDamageMultiplier = 1f;
-    private float superPunchCooldownMultiplier = 1f;
-    public float SuperPunchCooldownMultiplier
+    public float AttackDamageMultiplier = 1f;
+    private float attackSpeedMultiplier = 1f;
+    public float AttackSpeedMultiplier
     {
-        get => superPunchCooldownMultiplier;
+        get => attackSpeedMultiplier;
         set
         {
-            if (superPunchCooldownMultiplier != value)
+            if (attackSpeedMultiplier != value)
             {
-                superPunchCooldownMultiplier = value;
+                attackSpeedMultiplier = value;
                 IHasAbility hasAbility = owner.GetComponent<IHasAbility>();
-                hasAbility.OnAbilityEvent("ModifySuperPunchCooldown");
+                hasAbility.OnAbilityEvent("ModifyAttackSpeed");
             }
         }
     }
+    public float MoveSpeed = 5f;
+    public float MoveSpeedMultiplier = 1f;
+    
     public Vector3 MoveDirection { get; set; } = Vector3.zero;
 }

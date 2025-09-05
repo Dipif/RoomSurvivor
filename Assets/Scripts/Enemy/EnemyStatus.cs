@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class EnemyStatus : StatusBase
 {
@@ -17,7 +18,7 @@ public class EnemyStatus : StatusBase
         CurrentHealth -= damage;
         if (CurrentHealth <= 0f)
         {
-            owner.SetActive(false);
+            owner.GetComponent<Enemy>().OnDied();
         }
     }
 }

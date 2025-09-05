@@ -5,6 +5,14 @@ public class DamageUpgradeEffect : UpgradeEffect
 {
     public override void ApplyTo(GameObject target)
     {
-        Debug.Log("DamageUpgradeEffect applied to " + target.name);
+        IHasAbility hasAbility = target.GetComponent<IHasAbility>();
+        if (hasAbility != null)
+        {
+            CharacterStatus characterStatus = hasAbility.GetStatus() as CharacterStatus;
+            if (characterStatus != null)
+            {
+                characterStatus.AttackDamageMultiplier += 0.1f;
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@ public class CharacterMoveAbility : AbilityBase
             return;
 
         Vector3 next = owner.transform.position 
-            + status.MoveDirection * status.Speed * Time.fixedDeltaTime;
+            + status.MoveDirection * status.MoveSpeed * status.MoveSpeedMultiplier * Time.fixedDeltaTime;
 
         Debug.DrawLine(owner.transform.position, next, Color.green, 0.1f);
         owner.transform.rotation = Quaternion.LookRotation(status.MoveDirection, Vector3.up);
@@ -29,7 +29,6 @@ public class CharacterMoveAbility : AbilityBase
             owner.transform.position = hit.position;
         animator.SetBool("IsMoving", true);
     }
-
     public override void Deactivate()
     {
         IHasAbility hasAbility = owner.GetComponent<IHasAbility>();

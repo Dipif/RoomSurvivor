@@ -470,6 +470,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3997745262171167684, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
+      propertyPath: status
+      value: 
+      objectReference: {fileID: 1210663854}
     - target: {fileID: 4609309110908129269, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
       propertyPath: m_Name
       value: Fighter
@@ -514,10 +518,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 295151405324903853, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4609309110908129269, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1210663854}
   m_SourcePrefab: {fileID: 100100000, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
 --- !u!114 &761767131 stripped
 MonoBehaviour:
@@ -853,6 +861,26 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4609309110908129269, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
   m_PrefabInstance: {fileID: 761767130}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1210663854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210663848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a0800234378644e81cd99eae7f639b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FighterStatus
+  Tags: []
+  CurrentHealth: 100
+  MaxHealth: 100
+  AttackDamage: 10
+  AttackDamageMultiplier: 1
+  MoveSpeed: 5
+  MoveSpeedMultiplier: 1
+  SuperPunchDamageMultiplier: 1
 --- !u!1 &1228070221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,6 +1589,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   Player: {fileID: 761767131}
   RoomManager: {fileID: 12741002}
+  Gold: 0
+  Score: 0
 --- !u!114 &1963522529
 MonoBehaviour:
   m_ObjectHideFlags: 0

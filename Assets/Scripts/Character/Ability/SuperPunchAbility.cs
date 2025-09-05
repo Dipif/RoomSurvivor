@@ -50,7 +50,7 @@ public class SuperPunchAbility : AbilityBase
     public override void OnEvent(string eventName)
     {
         IHasAbility hasAbility = owner.GetComponent<IHasAbility>();
-        CharacterStatus status = (CharacterStatus)hasAbility.GetStatus();
+        FighterStatus status = (FighterStatus)hasAbility.GetStatus();
         switch (eventName)
         {
             case "SuperPunchHit":

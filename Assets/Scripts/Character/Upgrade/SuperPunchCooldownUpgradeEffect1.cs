@@ -5,7 +5,7 @@ public class SuperPunchCooldownUpgradeEffect : UpgradeEffect
 {
     public override void ApplyTo(GameObject target)
     {
-        CharacterStatus status = target.GetComponent<CharacterStatus>();
+        FighterStatus status = target.GetComponent<FighterStatus>();
         status.SuperPunchCooldownMultiplier -= 0.1f;
     }
 }

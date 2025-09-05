@@ -26,7 +26,8 @@ public class EnemySpawn : MonoBehaviour
     void OnRoomEntered(RoomBase room)
     {
         spawnTimer = 0f;
-        isSpawning = true;
+        if (IsSpawningInRoom(room))
+            isSpawning = true;
     }
 
     void OnRoomExited(RoomBase room)
@@ -51,6 +52,16 @@ public class EnemySpawn : MonoBehaviour
             spawnTimer = 0f;
             SpawnEnemyInRoom();
         }
+    }
+
+    private bool IsSpawningInRoom(RoomBase room)
+    {
+        Debug.Log(room.GetType().Name);
+        if (room as SkillRoom != null)
+            return false;
+        else if (room as LevelRoom != null)
+            return false;
+        return true;
     }
 
     private void SpawnEnemyInRoom()
