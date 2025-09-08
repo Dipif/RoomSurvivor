@@ -24,4 +24,5 @@ public class CharacterStatus : StatusBase
     public float MoveSpeedMultiplier = 1f;
     
     public Vector3 MoveDirection { get; set; } = Vector3.zero;
+    public bool canMove = true;
 }

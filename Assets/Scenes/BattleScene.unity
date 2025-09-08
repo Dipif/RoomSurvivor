@@ -470,6 +470,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 136182897972726248, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
+      propertyPath: loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 136182897972726248, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
+      propertyPath: baseCooldown
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3997745262171167684, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
       propertyPath: status
       value: 
@@ -518,6 +526,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8175408001914768045, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
+      propertyPath: loop
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 295151405324903853, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
     m_RemovedGameObjects: []
@@ -526,6 +538,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4609309110908129269, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1210663854}
+    - targetCorrespondingSourceObject: {fileID: 4609309110908129269, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1210663859}
   m_SourcePrefab: {fileID: 100100000, guid: 087fcb5e65f2f79409af90b0905a5532, type: 3}
 --- !u!114 &761767131 stripped
 MonoBehaviour:
@@ -880,7 +895,25 @@ MonoBehaviour:
   AttackDamageMultiplier: 1
   MoveSpeed: 5
   MoveSpeedMultiplier: 1
+  canMove: 1
   SuperPunchDamageMultiplier: 1
+--- !u!114 &1210663859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210663848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2633d74133449c418e12ee36def343b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnockbackController
+  sampleRadius: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  hasAbilitySource: {fileID: 761767131}
 --- !u!1 &1228070221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,7 +1638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawn
   enemyPrefab: {fileID: 5977967627260147935, guid: c0587196897a46a4e825919e3e145d56, type: 3}
   enemies: []
-  spawnInterval: 0.5
+  spawnInterval: 10
 --- !u!1 &2080401761
 GameObject:
   m_ObjectHideFlags: 0

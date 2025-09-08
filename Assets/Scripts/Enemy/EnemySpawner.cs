@@ -25,7 +25,7 @@ public class EnemySpawn : MonoBehaviour
 
     void OnRoomEntered(RoomBase room)
     {
-        spawnTimer = 0f;
+        spawnTimer = spawnInterval - 3f;
         if (IsSpawningInRoom(room))
             isSpawning = true;
     }

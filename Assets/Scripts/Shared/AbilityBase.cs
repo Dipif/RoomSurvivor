@@ -9,7 +9,7 @@ public class AbilityBase : MonoBehaviour
     protected float remainingCooldown = 0f;
 
     [SerializeField]
-    bool loop = false;
+    protected bool loop = false;
 
     protected GameObject owner;
     public virtual void Initialize(GameObject owner)
@@ -28,7 +28,7 @@ public class AbilityBase : MonoBehaviour
                 remainingCooldown = 0;
             }
         }
-        if (loop && remainingCooldown == 0)
+        if (loop && remainingCooldown == 0 && CanActivate())
         {
             Activate();
             remainingCooldown = cooldown;
@@ -36,7 +36,7 @@ public class AbilityBase : MonoBehaviour
     }
     public virtual bool CanActivate()
     {
-        return remainingCooldown == 0;
+        return true;
     }
     public virtual void Activate() { }
     public virtual void Deactivate() { }

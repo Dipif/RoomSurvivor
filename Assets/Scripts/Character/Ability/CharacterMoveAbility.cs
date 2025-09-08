@@ -5,6 +5,8 @@ public class CharacterMoveAbility : AbilityBase
 {
     [SerializeField]
     Animator animator;
+
+    bool canMove = true;
     public override void Initialize(GameObject owner)
     {
         base.Initialize(owner);
@@ -35,5 +37,23 @@ public class CharacterMoveAbility : AbilityBase
         CharacterStatus status = (CharacterStatus)hasAbility.GetStatus();
         status.MoveDirection = Vector3.zero;
         animator.SetBool("IsMoving", false);
+    }
+
+    public override bool CanActivate()
+    {
+        return canMove;
+    }
+
+    public override void OnEvent(string eventName)
+    {
+        if (eventName == "KnockbackStart")
+        {
+            canMove = false;
+            Deactivate();
+        }
+        else if (eventName == "KnockbackEnd")
+        {
+            canMove = true;
+        }
     }
 }

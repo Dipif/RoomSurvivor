@@ -55,6 +55,8 @@ MonoBehaviour:
     _keyValueList:
     - Key: Move
       Value: {fileID: 8793214616230079062}
+    - Key: Attack
+      Value: {fileID: 4952037012970227386}
   status: {fileID: 7872985527849415004}
 --- !u!195 &5861015854418616452
 NavMeshAgent:
@@ -70,7 +72,7 @@ NavMeshAgent:
   m_Acceleration: 32
   avoidancePriority: 50
   m_AngularSpeed: 180
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -197,8 +199,93 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2281654808988195937}
+  - {fileID: 5480798644411837872}
   m_Father: {fileID: 7377862799137916158}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1108097414685042108
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 930652959115266131}
+    m_Modifications:
+    - target: {fileID: 2844660044228881266, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_Name
+      value: EnemyAttackAbility
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.2561
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.72782993
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2844660044228881266, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4952037012970227386}
+  m_SourcePrefab: {fileID: 100100000, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+--- !u!1 &2889766728262667982 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2844660044228881266, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+  m_PrefabInstance: {fileID: 1108097414685042108}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4952037012970227386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889766728262667982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc800827771d0824097ae9be6f53d2c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackAbility
+  baseCooldown: 2
+  loop: 1
+--- !u!4 &5480798644411837872 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859232189483091980, guid: 5e0f1a2d3dad6af47820b74537cdb5fe, type: 3}
+  m_PrefabInstance: {fileID: 1108097414685042108}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1945323153905733281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -349,6 +436,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1679898818131747207}
+    - target: {fileID: 6402302728968427255, guid: f7383484deb5b4c41954e3d5e35a5663, type: 3}
+      propertyPath: stoppingDistance
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8169421840103750240, guid: f7383484deb5b4c41954e3d5e35a5663, type: 3}
       propertyPath: m_Name
       value: EnemyMoveAbility
