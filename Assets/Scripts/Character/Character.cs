@@ -11,6 +11,8 @@ public class Character : MonoBehaviour, IHasAbility
 
     public CharacterStatus status;
 
+    Vector3 startPosition;
+    Quaternion startRotation;
     void Start()
     {
         foreach (var kvp in abilities)
@@ -19,6 +21,8 @@ public class Character : MonoBehaviour, IHasAbility
             ability.Initialize(gameObject);
         }
         status.Initialize(gameObject);
+        startPosition = transform.position;
+        startRotation = transform.rotation;
     }
 
     public void Attack()
@@ -47,5 +51,22 @@ public class Character : MonoBehaviour, IHasAbility
     public StatusBase GetStatus()
     {
         return status;
+    }
+    void OnDestroy()
+    {
+        Debug.Log("Player destroyed!");
+    }
+
+    public void Restart()
+    {
+        foreach (var kvp in abilities)
+        {
+            var ability = kvp.Value;
+            ability.Deactivate();
+            ability.Initialize(gameObject);
+        }
+        status.ResetStatus();
+        transform.position = startPosition;
+        transform.rotation = startRotation;
     }
 }

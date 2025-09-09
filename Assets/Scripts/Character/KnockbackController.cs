@@ -7,6 +7,7 @@ public class KnockbackController : MonoBehaviour
     [SerializeField] float sampleRadius = 1.0f;
     [SerializeField] LayerMask groundMask = ~0;
     [SerializeField] MonoBehaviour hasAbilitySource;
+    [SerializeField] GameRestartEventChannel restartChannel;
     IHasAbility hasAbility;
 
     Coroutine running;
@@ -18,6 +19,24 @@ public class KnockbackController : MonoBehaviour
             hasAbility = hasAbilitySource as IHasAbility;
         if (hasAbility == null)
             Debug.LogError("IHasAbility is not assigned in KnockbackController");
+    }
+
+    private void OnEnable()
+    {
+        restartChannel.OnRaised += CancelKnockback;
+    }
+
+    private void OnDisable()
+    {
+        restartChannel.OnRaised -= CancelKnockback;
+    }
+
+    void CancelKnockback()
+    {
+        if (running != null)
+            StopCoroutine(running);
+        InKnockback = false;
+        hasAbility.OnAbilityEvent("KnockbackEnd");
     }
 
     public void ApplyFromSource(Vector3 sourcePos, float distance, float duration)

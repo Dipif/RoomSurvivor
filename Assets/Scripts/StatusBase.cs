@@ -12,6 +12,8 @@ public class StatusBase : MonoBehaviour
         this.owner = owner;
     }
 
+    public virtual void ResetStatus() { }
+
     public void AddTag(string tag)
     {
         if (!Tags.Contains(tag))

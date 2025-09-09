@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
+    [Header("References")]
+    public MapGenerator MapGenerator;
+
     [Header("Parents (auto-created if null)")]
     public Transform RoomsRoot;
     public Transform PathsRoot;
@@ -46,6 +49,12 @@ public class RoomManager : MonoBehaviour
             if (room == CurrentRoom)
                 CurrentRoom = null;
         };
+    }
+
+    public void Restart()
+    {
+        CurrentRoom = null;
+        MapGenerator.RebuildAll();
     }
 
     void EnsureRoots()

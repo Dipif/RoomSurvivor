@@ -25,7 +25,7 @@ public class EnemySpawn : MonoBehaviour
 
     void OnRoomEntered(RoomBase room)
     {
-        spawnTimer = spawnInterval - 3f;
+        spawnTimer = spawnInterval;
         if (IsSpawningInRoom(room))
             isSpawning = true;
     }
@@ -54,6 +54,16 @@ public class EnemySpawn : MonoBehaviour
         }
     }
 
+    public void Restart()
+    {
+        foreach (var enemy in enemies)
+        {
+            enemy.gameObject.SetActive(false);
+            enemy.transform.position = Vector3.zero;
+        }
+        isSpawning = false;
+    }
+
     private bool IsSpawningInRoom(RoomBase room)
     {
         Debug.Log(room.GetType().Name);
@@ -70,6 +80,10 @@ public class EnemySpawn : MonoBehaviour
 
         Collider roomCollider = currentRoom.GetComponent<Collider>();
         Vector3 spawnPos = GetRandomPositionInCollider(roomCollider);
+        while (Vector3.Distance(spawnPos, GameManager.Instance.Player.transform.position) < 2.0f)
+        {
+            spawnPos = GetRandomPositionInCollider(roomCollider);
+        }
 
         Enemy enemy = GetInactiveEnemy();
         if (enemy == null)

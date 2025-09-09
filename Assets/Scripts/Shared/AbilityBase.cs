@@ -16,6 +16,7 @@ public class AbilityBase : MonoBehaviour
     {
         this.owner = owner;
         cooldown = baseCooldown;
+        remainingCooldown = cooldown;
     }
 
     protected virtual void FixedUpdate()
