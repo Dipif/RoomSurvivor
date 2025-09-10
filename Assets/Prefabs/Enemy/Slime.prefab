@@ -115,10 +115,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatus
   Tags: []
-  CurrentHealth: 10
-  MaxHealth: 10
+  CurrentHealth: 20
+  MaxHealth: 20
   AttackDamage: 10
   Speed: 5
+  damageTextStyle: {fileID: 11400000, guid: 43bd41975f35a184293ea47491c1651f, type: 2}
 --- !u!136 &1064759666222007657
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public EnemySpawn EnemySpawn;
     public RoomManager RoomManager;
     public ResultManager ResultManager;
+    public FloatingTextPool DamageTextPool;
 
     public int Gold = 0;
     public int Score = 0;

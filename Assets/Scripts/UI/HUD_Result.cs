@@ -26,5 +26,8 @@ public class HUD_Result : MonoBehaviour
     public void OnExitButton()
     {
         Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }

@@ -10,7 +10,7 @@ public class WallStatus : StatusBase
         CurrentHealth -= damage;
         if (CurrentHealth <= 0f)
         {
-            Destroy(owner);
+            owner.gameObject.SetActive(false);
         }
     }
 }
