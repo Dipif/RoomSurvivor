@@ -42,5 +42,7 @@ public class FloatingText : MonoBehaviour
         Vector3 screenPosition = RectTransformUtility.WorldToScreenPoint(_camera, worldPosition);
         transform.position = screenPosition;
         float scale = style.scale.Evaluate(t);
+        //if (_camera != null)
+        //    transform.rotation = Quaternion.LookRotation(transform.position - _camera.transform.position);
     }
 }

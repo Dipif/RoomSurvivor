@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public RoomManager RoomManager;
     public ResultManager ResultManager;
     public FloatingTextPool DamageTextPool;
+    public FloatingTextPool GoldTextPool;
 
     public int Gold = 0;
     public int Score = 0;
