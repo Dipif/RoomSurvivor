@@ -11,6 +11,13 @@ public class AbilityBase : MonoBehaviour
     [SerializeField]
     protected bool loop = false;
 
+    [SerializeField]
+    protected bool hasDuration = false;
+    [SerializeField]
+    protected float duration = 0f;
+
+    protected float remainingDuration = 0f;
+
     protected GameObject owner;
     public virtual void Initialize(GameObject owner)
     {
@@ -33,13 +40,32 @@ public class AbilityBase : MonoBehaviour
         {
             Activate();
             remainingCooldown = cooldown;
+            if (hasDuration)
+            {
+                remainingDuration = duration;
+            }
+        }
+        if (hasDuration && remainingDuration > 0)
+        {
+            remainingDuration -= Time.fixedDeltaTime;
+            if (remainingDuration <= 0)
+            {
+                Deactivate();
+                remainingDuration = 0;
+            }
         }
     }
     public virtual bool CanActivate()
     {
         return true;
     }
-    public virtual void Activate() { }
+    public virtual void Activate() 
+    { 
+        if (hasDuration)
+        {
+            remainingDuration = duration;
+        }
+    }
     public virtual void Deactivate() { }
     public virtual void OnEvent(string eventName) { }
 }

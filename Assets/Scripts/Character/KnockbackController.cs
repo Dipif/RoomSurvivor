@@ -7,7 +7,6 @@ public class KnockbackController : MonoBehaviour
     [SerializeField] float sampleRadius = 1.0f;
     [SerializeField] LayerMask groundMask = ~0;
     [SerializeField] MonoBehaviour hasAbilitySource;
-    [SerializeField] GameRestartEventChannel restartChannel;
     IHasAbility hasAbility;
 
     Coroutine running;
@@ -23,12 +22,12 @@ public class KnockbackController : MonoBehaviour
 
     private void OnEnable()
     {
-        restartChannel.OnRaised += CancelKnockback;
+        GameManager.Instance.RestartChannel.OnRaised += CancelKnockback;
     }
 
     private void OnDisable()
     {
-        restartChannel.OnRaised -= CancelKnockback;
+        GameManager.Instance.RestartChannel.OnRaised -= CancelKnockback;
     }
 
     void CancelKnockback()

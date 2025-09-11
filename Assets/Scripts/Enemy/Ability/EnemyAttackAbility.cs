@@ -18,6 +18,11 @@ public class EnemyAttackAbility : AbilityBase
 
     public override bool CanActivate()
     {
+        IHasAbility playerHasAbility = GameManager.Instance.Player.GetComponent<IHasAbility>();
+        CharacterStatus playerStatus = playerHasAbility.GetStatus() as CharacterStatus;
+        if (playerStatus.IsInvincible)
+            return false;
+
         Vector3 playerPos = GameManager.Instance.Player.transform.position;
         Vector3 enemyPos = owner.transform.position;
         float distance = Vector3.Distance(playerPos, enemyPos);

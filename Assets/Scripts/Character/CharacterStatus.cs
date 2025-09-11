@@ -83,6 +83,7 @@ public class CharacterStatus : StatusBase
         }
     }
 
+    public bool IsInvincible { get; set; } = false;
 
     public override void ResetStatus()
     {
@@ -100,6 +101,10 @@ public class CharacterStatus : StatusBase
     public void TakeDamage(float damage)
     {
         if (damage <= 0f) return;
+
+        IHasAbility hasAbility = owner.GetComponent<IHasAbility>();
+        hasAbility.GetAbilities()["Invincible"].Activate();
+
         CurrentHealth -= damage; // setter가 이벤트를 쏨
         if (CurrentHealth <= 0f)
         {

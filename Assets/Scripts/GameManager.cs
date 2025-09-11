@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public int Gold = 0;
     public int Score = 0;
 
-    [SerializeField] GameRestartEventChannel restartChannel;
+    public GameRestartEventChannel RestartChannel;
     void Awake()
     {
         if (Instance == null)
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         RoomManager?.Restart();
         Player?.Restart();
         EnemySpawn?.Restart();
-        restartChannel.Raise();
+        RestartChannel.Raise();
     }
 
     void Init()
