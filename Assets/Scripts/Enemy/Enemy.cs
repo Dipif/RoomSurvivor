@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class Enemy : MonoBehaviour, IHasAbility
 {
@@ -36,6 +37,7 @@ public class Enemy : MonoBehaviour, IHasAbility
     public virtual void OnDied()
     {
         var currentRoom = GameManager.Instance.GetCurrentRoom();
+        GameManager.Instance.GoldTextPool.ShowText(transform.position, "+1", FloatingTextType.Gold);
         GameManager.Instance.Gold += 1;
         GameManager.Instance.Score += 1;
         gameObject.SetActive(false);

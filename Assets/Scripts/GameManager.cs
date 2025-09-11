@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public FloatingTextPool DamageTextPool;
     public FloatingTextPool GoldTextPool;
 
+    public FloatingTextTheme FloatingTextTheme;
+
     public int Gold = 0;
     public int Score = 0;
 
@@ -20,7 +22,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -56,7 +57,6 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        Time.timeScale = 1f;
         Init();
         RoomManager?.Restart();
         Player?.Restart();
@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
 
     void Init()
     {
+        Time.timeScale = 1f;
         Gold = 0;
         Score = 0;
     }

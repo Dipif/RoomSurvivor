@@ -21,11 +21,12 @@ public class FloatingTextPool : MonoBehaviour
         return inst;
     }
 
-    public void ShowText(Vector3 worldPos, int value, FloatingTextStyle style)
+    public void ShowText(Vector3 worldPos, string text, FloatingTextType type)
     {
         if (pool.Count == 0) pool.Enqueue(Create());
+        var style = GameManager.Instance.FloatingTextTheme.GetStyle(type);
         var dt = pool.Dequeue();
-        dt.Play(value, worldPos, style, worldCamera, Return);
+        dt.Play(text, worldPos, style, worldCamera, Return);
     }
 
     void Return(FloatingText dt)

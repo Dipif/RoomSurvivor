@@ -11,9 +11,9 @@ public class FloatingText : MonoBehaviour
     Vector3 origin;
     Camera _camera;
 
-    public void Play(float value, Vector3 origin, FloatingTextStyle style, Camera camera, System.Action<FloatingText> onComplete)
+    public void Play(string text, Vector3 origin, FloatingTextStyle style, Camera camera, System.Action<FloatingText> onComplete)
     {
-        textMeshPro.text = value.ToString();
+        textMeshPro.text = text;
         this.style = style;
         this.onComplete = onComplete;
         this.origin = origin;

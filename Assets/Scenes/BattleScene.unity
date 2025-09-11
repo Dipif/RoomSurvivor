@@ -1323,7 +1323,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB05D\uB0B4\uAE30\n"
+  m_text: "\uCC98\uC74C\uC73C\uB85C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fccbdf42fa1c6d04696a60dd6ceb1f07, type: 2}
   m_sharedMaterial: {fileID: 1765394723638488624, guid: fccbdf42fa1c6d04696a60dd6ceb1f07, type: 2}
@@ -1450,9 +1450,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fcc4bd694562340b2a23e8740a467f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingTextPool
-  prefab: {fileID: 0}
+  prefab: {fileID: 4487999589274360139, guid: 8461b3b218cf28f43aa80c1e3846c84a, type: 3}
   initial: 16
-  worldCamera: {fileID: 0}
+  worldCamera: {fileID: 330585545}
 --- !u!1 &1034044156
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,6 +2323,7 @@ GameObject:
   - component: {fileID: 1660661038}
   - component: {fileID: 1660661037}
   - component: {fileID: 1660661036}
+  - component: {fileID: 1660661039}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -2394,9 +2395,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084726027}
-        m_TargetAssemblyTypeName: HUD_Result, Assembly-CSharp
-        m_MethodName: OnExitButton
+      - m_Target: {fileID: 1660661039}
+        m_TargetAssemblyTypeName: SceneMove, Assembly-CSharp
+        m_MethodName: MoveToScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2444,6 +2445,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1660661034}
   m_CullTransparentMesh: 1
+--- !u!114 &1660661039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660661034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abff5bdf41d178144bfff65c601d8ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneMove
+  sceneName: MainScene
 --- !u!1 &1679914042
 GameObject:
   m_ObjectHideFlags: 0
@@ -2923,7 +2937,8 @@ MonoBehaviour:
   RoomManager: {fileID: 12741002}
   ResultManager: {fileID: 740090682}
   DamageTextPool: {fileID: 522786502}
-  GoldTextPool: {fileID: 0}
+  GoldTextPool: {fileID: 996417781}
+  FloatingTextTheme: {fileID: 11400000, guid: 81971d0fee2b65546a27d40e157ed37a, type: 2}
   Gold: 0
   Score: 0
   restartChannel: {fileID: 11400000, guid: 39ef8070fb706c54d87bf9e0393873af, type: 2}
