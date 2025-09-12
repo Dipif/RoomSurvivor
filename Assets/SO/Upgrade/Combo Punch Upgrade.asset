@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33718db972d9c7844bcc19e643690cbb, type: 3}
   m_Name: Combo Punch Upgrade
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeOption
+  Level: 0
   Title: Skill 1 Upgreade
   Description: Upgrade!
-  Effects:
-  - {fileID: 11400000, guid: 3c57ee3bb6bb734459ee910ddeeb20a5, type: 2}
+  Effect: {fileID: 0}
+  costType: 1
+  manualCosts: 
+  linearStartCost: 100
+  linearIncrement: 50

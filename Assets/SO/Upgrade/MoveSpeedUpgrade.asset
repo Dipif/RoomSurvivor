@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33718db972d9c7844bcc19e643690cbb, type: 3}
   m_Name: MoveSpeedUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeOption
+  Level: 0
   Title: "\uC774\uB3D9 \uC18D\uB3C4 \uAC15\uD654"
   Description: "\uC774\uB3D9 \uC18D\uB3C4\uB97C \uC62C\uB824\uC694"
-  Effects:
-  - {fileID: 11400000, guid: 210f89cc938466b479b5f151962073d8, type: 2}
+  Effect: {fileID: 11400000, guid: 210f89cc938466b479b5f151962073d8, type: 2}
+  costType: 1
+  manualCosts: 
+  linearStartCost: 50
+  linearIncrement: 50

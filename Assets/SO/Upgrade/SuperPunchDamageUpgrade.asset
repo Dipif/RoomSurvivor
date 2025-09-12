@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33718db972d9c7844bcc19e643690cbb, type: 3}
   m_Name: SuperPunchDamageUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeOption
+  Level: 0
   Title: Skill 2 Upgreade
   Description: Upgrade!
-  Effects:
-  - {fileID: 11400000, guid: ee535c32fc40c1c4ab7ea6f3ddcf458e, type: 2}
+  Effect: {fileID: 11400000, guid: ee535c32fc40c1c4ab7ea6f3ddcf458e, type: 2}
+  costType: 1
+  manualCosts: 
+  linearStartCost: 20
+  linearIncrement: 10

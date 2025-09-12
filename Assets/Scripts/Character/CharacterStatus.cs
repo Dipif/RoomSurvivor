@@ -83,6 +83,12 @@ public class CharacterStatus : StatusBase
         }
     }
 
+    public int AttackSpeedUpgradeLevel { get; set; } = 0;
+    public int MoveSpeedUpgradeLevel { get; set; } = 0;
+    public int DamageUpgradeLevel { get; set; } = 0;
+    public int SuperPunchCooldownUpgradeLevel { get; set; } = 0;
+    public int SuperPunchDamageUpgradeLevel { get; set; } = 0;
+
     public bool IsInvincible { get; set; } = false;
 
     public override void ResetStatus()
