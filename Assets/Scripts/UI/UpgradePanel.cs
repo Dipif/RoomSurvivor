@@ -27,7 +27,7 @@ public class UpgradePanel : MonoBehaviour
 
     public void OnClick()
     {
-        Close();
+        InteractionEvents.RaiseCloseUpgradePanel();
     }
 
     private void Open(List<UpgradeOption> options, PlayerInteractor interactor)

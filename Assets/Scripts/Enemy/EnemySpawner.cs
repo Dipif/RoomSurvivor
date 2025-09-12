@@ -80,9 +80,13 @@ public class EnemySpawn : MonoBehaviour
 
         Collider roomCollider = currentRoom.GetComponent<Collider>();
         Vector3 spawnPos = GetRandomPositionInCollider(roomCollider);
-        while (Vector3.Distance(spawnPos, GameManager.Instance.Player.transform.position) < 2.0f)
+
+        Vector2 playerPos2D = new Vector2(GameManager.Instance.Player.transform.position.x, GameManager.Instance.Player.transform.position.z);
+        Vector2 spawnPos2D = new Vector2(spawnPos.x, spawnPos.z);
+        while (Vector2.Distance(spawnPos2D, playerPos2D) < 5.0f)
         {
             spawnPos = GetRandomPositionInCollider(roomCollider);
+            spawnPos2D = new Vector2(spawnPos.x, spawnPos.z);
         }
 
         Enemy enemy = GetInactiveEnemy();
